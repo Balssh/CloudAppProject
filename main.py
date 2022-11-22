@@ -1,5 +1,5 @@
 import folium
-from folium.plugins import Draw
+from folium.plugins import Draw, MarkerCluster
 import streamlit as st
 from streamlit_folium import st_folium
 import googlemaps
@@ -8,25 +8,31 @@ from pprint import pprint
 import os
 
 api_key = os.environ["GOOGLE_API_KEY"]
-print(api_key)
-map_client = googlemaps.Client(key=api_key)
-address = "Piata Unirii, Timisoara, RO"
-response = map_client.geocode(address)
-pprint(response)
+# print(api_key)
+# map_client = googlemaps.Client(key=api_key)
+# address = "Piata Unirii, Timisoara, RO"
+# response = map_client.geocode(address)
+# pprint(response)
 
-Timisoara: 45.7536121,21.2084034
+# Timisoara: 45.7536121,21.2084034
 _map = folium.Map(location=[45.75601417988166, 21.2289848306682], zoom_start=13)
-draw_options = {
-    'polyline': False,
-    'polygon': False,
-    'rectangle': False,
-    'circle': False,
-    'circlemarker': False
-}
-edit_options = {
-    'edit': False,
-}
-Draw(draw_options=draw_options, edit_options=edit_options).add_to(_map)
+# draw_options = {
+#     'polyline': False,
+#     'polygon': False,
+#     'rectangle': False,
+#     'circle': False,
+#     'circlemarker': False
+# }
+# edit_options = {
+#     'edit': False,
+# }
+# Draw(draw_options=draw_options, edit_options=edit_options).add_to(_map)
+st.session_state.map = folium.Map(location=[45.75601417988166, 21.2289848306682], zoom_start=13)
+def show_map():
+
+    output = st_folium(st.session_state.map, width=750, height=500)
+    # st.write(output)
+
 st.title("CloudBees' CityDangerApp 🐝")
 
 with st.sidebar:
@@ -40,7 +46,9 @@ with st.sidebar:
     st.button("Logout")
     st.markdown("---")
 
+
 if menu_item == "Home":
-    output = st_folium(_map, width=750, height=500)
-    st.write(output)
+
+    st.echo
+
 
