@@ -7,9 +7,8 @@ import { GoogleMap } from "@react-google-maps/api";
 const center = { lat: 45.757533, lng: 21.229066 };
 
 const Map = () => {
-    const theme = useTheme();
-    const isMobile = useMediaQuery('(min-width:600px)');
     const mapRef = useRef();
+    const [place, setPlace] = useState();
 
     const onLoad = useCallback((map) => (mapRef.current = map), []);
     return (
@@ -20,7 +19,7 @@ const Map = () => {
                 height: "600px",
                 zIndex: 1,
                 "&hover": { zIndex: 2 },
-                margin: [0, 0, 0, 5],
+                maxWidth: "90%",
             }}
         >
             <GoogleMap

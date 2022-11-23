@@ -8,29 +8,49 @@ import Header from "./components/Header/Header";
 import List from "./components/List/List";
 import Map from "./components/Map/Map";
 import PlaceDetails from "./components/PlaceDetails/PlaceDetails";
+import AlertCard from "./components/AlertCard/AlertCard";
 
 const App = () => {
 
 	const { isLoaded } = useJsApiLoader({
 		id: "google-map-script",
-        googleMapsApiKey: "AIzaSyAF--9XqeP0nbm5ZRnFeupvaOu4Ik1PR14"
-    });
+		googleMapsApiKey: "AIzaSyAF--9XqeP0nbm5ZRnFeupvaOu4Ik1PR14",
+		libraries: ["places"],
+	});
 
 	useEffect(() => {
 		console.log(isLoaded);
-	  }, [isLoaded]);
+	}, [isLoaded]);
 
 	return (
 		<>
 			<CssBaseline />
 			<Header />
-			<Grid container spacing={3} style={{ width: "100%" }}>
-				<Grid xs={12} md={4}>
+			<Grid container spacing={3} style={{
+				width: "100%",
+				margin: "auto", }}
+			>
+				<Grid xs={12} md={2}>
 					<List />
 				</Grid>
 
-				<Grid item xs={12} md={8}>
-					{ isLoaded && <Map /> }
+				<Grid xs={12} md={4}
+					sx={{
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+					}}
+				>
+					<AlertCard />
+				</Grid>
+				<Grid xs={12} md={6}
+					sx={{
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+					}}
+				>
+					{isLoaded && <Map />}
 				</Grid>
 			</Grid>
 		</>
