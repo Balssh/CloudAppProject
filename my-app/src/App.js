@@ -1,4 +1,4 @@
-import { React, useEffect } from "react";
+import { React, useState } from "react";
 import { CssBaseline, Box } from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
 
@@ -9,7 +9,9 @@ import PlaceDetails from "./components/PlaceDetails/PlaceDetails";
 import AlertCard from "./components/AlertCard/AlertCard";
 
 const App = () => {
-
+	const [location, setLocation] = useState("");
+	const [alert, setAlert] = useState("");
+	console.log(location.label, alert.label);
 	return (
 		<>
 			<CssBaseline />
@@ -29,7 +31,7 @@ const App = () => {
 						alignItems: "center",
 					}}
 				>
-					<AlertCard />
+					<AlertCard setLocation={setLocation} setAlert={setAlert}/>
 				</Grid>
 				<Grid xs={12} md={6}
 					sx={{
