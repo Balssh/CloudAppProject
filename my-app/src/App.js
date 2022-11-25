@@ -2,8 +2,6 @@ import { React, useEffect } from "react";
 import { CssBaseline, Box } from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
 
-import { useJsApiLoader } from "@react-google-maps/api";
-
 import Header from "./components/Header/Header";
 import List from "./components/List/List";
 import Map from "./components/Map/Map";
@@ -11,16 +9,6 @@ import PlaceDetails from "./components/PlaceDetails/PlaceDetails";
 import AlertCard from "./components/AlertCard/AlertCard";
 
 const App = () => {
-
-	const { isLoaded } = useJsApiLoader({
-		id: "google-map-script",
-		googleMapsApiKey: "AIzaSyAF--9XqeP0nbm5ZRnFeupvaOu4Ik1PR14",
-		libraries: ["places"],
-	});
-
-	useEffect(() => {
-		console.log(isLoaded);
-	}, [isLoaded]);
 
 	return (
 		<>
@@ -50,7 +38,7 @@ const App = () => {
 						alignItems: "center",
 					}}
 				>
-					{isLoaded && <Map />}
+					<Map />
 				</Grid>
 			</Grid>
 		</>
