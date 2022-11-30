@@ -10,9 +10,8 @@ const Menu = () => {
         <Drawer
             variant="permanent"
             sx={{
-                width: drawerWidth,
                 flexShrink: 0,
-                [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: "border-box" },
+                [`& .MuiDrawer-paper`]: { boxSizing: "border-box" },
             }}
             PaperProps={{
                 sx: {
@@ -25,7 +24,9 @@ const Menu = () => {
             <Box sx={{ overflow: "auto" }}>
                 <List>
                     <ListItem disablePadding>
-                        <ListItemButton>
+                        <ListItemButton
+                            alignItems="flex"
+                        >
                             <ListItemIcon>
                                 <HomeIcon />
                             </ListItemIcon>
