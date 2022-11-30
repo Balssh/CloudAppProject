@@ -24,7 +24,7 @@ const AlertCard = ({ handleSelect }) => {
 			.then(results => getLatLng(results[0]))
 			.then(({ lat, lng }) => {
 				setCoordinates({ lat, lng })
-				console.log('Successfully got latitude and longitude', coordinates.lat, coordinates.lng);
+				// console.log('Successfully got latitude and longitude', coordinates.lat, coordinates.lng);
 			}
 			)
 			.catch(error => console.error(error));
@@ -67,7 +67,7 @@ const AlertCard = ({ handleSelect }) => {
 			</CardContent>
 			<CardActions>
 				<Button variant="contained"
-					onClick={() => handleSelect(location, alert)}
+					onClick={() => handleSelect(location, alert, coordinates)}
 				>
 					Submit
 				</Button>

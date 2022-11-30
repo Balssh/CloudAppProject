@@ -7,12 +7,16 @@ import List from "./components/List/List";
 import Map from "./components/Map/Map";
 import AlertCard from "./components/AlertCard/AlertCard";
 
-const center = { lat: 45.757533, lng: 21.229066 };
+
 
 const App = () => {
-	function handleSelect(location, thing) {
-		console.log(location, thing);
+	const [center, setCenter] = useState({ lat: 45.757533, lng: 21.229066 });
+
+	function handleSelect(location, alert, coordinates) {
+		console.log(location, alert, coordinates);
+		setCenter(coordinates);
 	};
+
 	return (
 		<>
 			<CssBaseline />
