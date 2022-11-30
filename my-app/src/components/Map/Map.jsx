@@ -1,12 +1,9 @@
 import { React, useState, useRef, useEffect, useCallback } from "react";
-import { Paper, Typography, useMediaQuery, Rating, Box } from "@mui/material";
-import { LocationOnOutlinedIcon } from "@mui/icons-material";
+import { Box } from "@mui/material";
 import { useTheme, styled, alpha } from "@mui/material/styles";
 import { GoogleMap } from "@react-google-maps/api";
 
-const center = { lat: 45.757533, lng: 21.229066 };
-
-const Map = () => {
+const Map = ({center}) => {
     const mapRef = useRef();
     const [place, setPlace] = useState();
 

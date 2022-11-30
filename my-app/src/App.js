@@ -5,13 +5,14 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Header from "./components/Header/Header";
 import List from "./components/List/List";
 import Map from "./components/Map/Map";
-import PlaceDetails from "./components/PlaceDetails/PlaceDetails";
 import AlertCard from "./components/AlertCard/AlertCard";
 
+const center = { lat: 45.757533, lng: 21.229066 };
+
 const App = () => {
-	const [location, setLocation] = useState("");
-	const [alert, setAlert] = useState("");
-	console.log(location.label, alert.label);
+	function handleSelect(location, thing) {
+		console.log(location, thing);
+	};
 	return (
 		<>
 			<CssBaseline />
@@ -31,7 +32,7 @@ const App = () => {
 						alignItems: "center",
 					}}
 				>
-					<AlertCard setLocation={setLocation} setAlert={setAlert}/>
+					<AlertCard handleSelect={handleSelect}/>
 				</Grid>
 				<Grid xs={12} md={6}
 					sx={{
@@ -40,7 +41,7 @@ const App = () => {
 						alignItems: "center",
 					}}
 				>
-					<Map />
+					<Map center={center}/>
 				</Grid>
 			</Grid>
 		</>

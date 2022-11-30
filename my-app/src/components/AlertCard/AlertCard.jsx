@@ -1,9 +1,9 @@
 import { React, useState, useEffect } from "react";
 
-import { Typography, Stack, Card, CardContent, CardActionArea, Button } from "@mui/material";
+import { Typography, Stack, Card, CardContent, CardActions, Button } from "@mui/material";
 import Select from 'react-select'
+import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
-
 const alertTypes = [
 	{ value: "pothole", label: "Pothole" },
 	{ value: "traffic jam", label: "Traffic Jam" },
@@ -13,9 +13,24 @@ const alertTypes = [
 	{ value: "other", label: "Other" }
 ];
 
-const AlertCard = ({setLocation, setAlert}) => {
+const AlertCard = ({ handleSelect }) => {
 
-	// console.log(value.label);
+	const [location, setLocation] = useState({ label: "", value: "" });
+	const [coordinates, setCoordinates] = useState({ lat: 45.757533, lng: 21.229066 });
+	const [alert, setAlert] = useState(alertTypes[5]);
+
+	useEffect(() => {
+		geocodeByAddress(location.label)
+			.then(results => getLatLng(results[0]))
+			.then(({ lat, lng }) => {
+				setCoordinates({ lat, lng })
+				console.log('Successfully got latitude and longitude', coordinates.lat, coordinates.lng);
+			}
+			)
+			.catch(error => console.error(error));
+		location === "" ? setLocation({ label: "", value: "" }) : setLocation(location);
+	}, [location]);
+
 	return (
 		<Card
 			sx={{
@@ -36,20 +51,27 @@ const AlertCard = ({setLocation, setAlert}) => {
 							menuPlacement: "auto",
 							menuPosition: "fixed",
 							onChange: setLocation,
-						}}
+							defaultValue: location,
 
+						}}
+						placeholder="Location"
 						fetchDetails={true}
 					/>
 					<Select options={alertTypes}
 						menuPlacement="auto"
 						menuPosition="fixed"
 						onChange={setAlert}
+						placeholder="Select alert type"
 					/>
 				</Stack>
 			</CardContent>
-			<CardActionArea>
-				<Button variant="contained">Submit</Button>
-			</CardActionArea>
+			<CardActions>
+				<Button variant="contained"
+					onClick={() => handleSelect(location, alert)}
+				>
+					Submit
+				</Button>
+			</CardActions>
 		</Card>
 	);
 }
