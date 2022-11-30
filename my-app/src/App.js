@@ -3,7 +3,7 @@ import { CssBaseline, Box } from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
 
 import Header from "./components/Header/Header";
-import List from "./components/List/List";
+import Menu from "./components/Menu/Menu";
 import Map from "./components/Map/Map";
 import AlertCard from "./components/AlertCard/AlertCard";
 
@@ -20,13 +20,22 @@ const App = () => {
 	return (
 		<>
 			<CssBaseline />
-			<Header />
+			<Header style={{
+				position: "absolute",
+				marginss: "auto",
+			}}/>
 			<Grid container spacing={3} style={{
 				width: "100%",
-				margin: "auto", }}
+				marginTop: "64px",
+
+			}}
 			>
-				<Grid xs={12} md={2}>
-					<List />
+				<Grid xs={12} md={2}
+					sx={{
+						display: { xs: "none", md: "block" },
+					}}
+				>
+					<Menu />
 				</Grid>
 
 				<Grid xs={12} md={4}
@@ -36,7 +45,7 @@ const App = () => {
 						alignItems: "center",
 					}}
 				>
-					<AlertCard handleSelect={handleSelect}/>
+					<AlertCard handleSelect={handleSelect} />
 				</Grid>
 				<Grid xs={12} md={6}
 					sx={{
@@ -45,7 +54,7 @@ const App = () => {
 						alignItems: "center",
 					}}
 				>
-					<Map center={center}/>
+					<Map center={center} />
 				</Grid>
 			</Grid>
 		</>
