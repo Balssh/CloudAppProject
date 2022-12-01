@@ -25,7 +25,6 @@ const Menu = () => {
                 <List>
                     <ListItem disablePadding>
                         <ListItemButton
-                            alignItems="flex"
                         >
                             <ListItemIcon>
                                 <HomeIcon />
