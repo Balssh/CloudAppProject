@@ -8,10 +8,10 @@ const container = document.getElementById("root")
 createRoot(container).render(
     <React.StrictMode>
         <AuthProvider
-            authType="cookie"
-            cookieName="auth"
+            authType={"cookie"}
+            authName={"_auth"}
             cookieDomain={window.location.hostname}
-            cookieSecure="False"
+            cookieSecure={false}
         >
             <BrowserRouter>
                 <App />

@@ -8,8 +8,13 @@ import Login from './components/Login/Login';
 const App = () => {
 	return (
 		<Routes>
-			<Route path="/" element={<Home />} />
-			<Route path="/login" element={<Login />} />
+			<Route path="/" element={
+				<RequireAuth loginPath="/login">
+					<Home />
+				</RequireAuth>}>
+			</Route>
+			<Route path="/login" element={<Login />}>
+			</Route>
 		</Routes>
 	);
 }

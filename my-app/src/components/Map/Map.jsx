@@ -1,6 +1,6 @@
 import { React, useState, useRef, useEffect, useCallback } from "react";
 import { Box } from "@mui/material";
-import { GoogleMap, Marker } from "@react-google-maps/api";
+import { GoogleMap, MarkerF } from "@react-google-maps/api";
 
 const Map = ({center}) => {
     const mapRef = useRef();
@@ -28,7 +28,8 @@ const Map = ({center}) => {
                 }}
                 onLoad={onLoad}
             >
-                <Marker position={center} />
+                <MarkerF position={center} />
+                {/* <MarkerF position={{ lat: 45.757533, lng: 21.229066 }} /> */}
             </GoogleMap>
 
         </Box>

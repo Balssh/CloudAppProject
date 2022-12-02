@@ -2,10 +2,20 @@ import React from 'react';
 import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Divider } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useSignOut } from 'react-auth-kit';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
 const Menu = () => {
+    const signOut = useSignOut();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        signOut();
+        navigate("/login");
+    };
+
     return (
         <Drawer
             variant="permanent"
@@ -24,8 +34,7 @@ const Menu = () => {
             <Box sx={{ overflow: "auto" }}>
                 <List>
                     <ListItem disablePadding>
-                        <ListItemButton
-                        >
+                        <ListItemButton>
                             <ListItemIcon>
                                 <HomeIcon />
                             </ListItemIcon>
@@ -36,7 +45,9 @@ const Menu = () => {
                 <Divider />
                 <List>
                     <ListItem disablePadding>
-                        <ListItemButton>
+                        <ListItemButton
+                            onClick={handleLogout}
+                        >
                             <ListItemIcon>
                                 <LogoutIcon />
                             </ListItemIcon>

@@ -28,7 +28,6 @@ const AlertCard = ({ handleSelect }) => {
 			}
 			)
 			.catch(error => console.error(error));
-		location === "" ? setLocation({ label: "", value: "" }) : setLocation(location);
 	}, [location]);
 
 	return (
@@ -51,8 +50,6 @@ const AlertCard = ({ handleSelect }) => {
 							menuPlacement: "auto",
 							menuPosition: "fixed",
 							onChange: setLocation,
-							defaultValue: location,
-
 						}}
 						placeholder="Location"
 						fetchDetails={true}
