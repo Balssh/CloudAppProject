@@ -1,38 +1,61 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import axios, { AxiosError } from 'axios';
-import { useSignIn } from 'react-auth-kit';
+import { useSignIn, useIsAuthenticated } from 'react-auth-kit';
 import { useNavigate } from "react-router-dom";
 import { Typography, Stack, Card, CardContent, CardActions, Button, TextField } from "@mui/material";
 
 const Register = () => {
 
     const [error, setError] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const signIn = useSignIn();
     const navigate = useNavigate();
-
-    let data = JSON.stringify({
-        "email": "badeanarcis@gmail.com",
-        "password": "narcisAdmin123"
-    });
-
-    let config = {
-        method: 'post',
-        url: 'https://cloudbeesapimanagemant.azure-api.net/auth/login',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        data: data
-    };
+    const isAuthenticated = useIsAuthenticated();
 
     const handleSubmit = async () => {
-        await axios(config)
-            .then((response) => {
-                console.log(JSON.stringify(response.data));
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        console.log(email, password);
+        await axios.post("https://cloudbeesapi.azurewebsites.net/auth/login",
+            { "email": email, "password": password }
+        ).then((res) => {
+            console.log(res.data.token);
+            navigate("/login");
+        }).catch((err) => {
+            console.log(err.response.data.message);
+        });
     };
+
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value);
+    };
+
+    const handlePasswordChange = (event) => {
+        setPassword(event.target.value);
+    };
+
+    const handleEmailEnter = (event) => {
+        if (event.keyCode === 13) {
+            // console.log("email changed: ", event.target.value);
+            setEmail(event.target.value);
+        }
+    };
+
+    const handlePasswordEnter = (event) => {
+        if (event.keyCode === 13) {
+            // console.log("password changed: ", event.target.value);
+            setPassword(event.target.value);
+        }
+    };
+
+    useEffect(() => {
+        console.log(email, password)
+    }, [email, password]);
+
+    useEffect(() => {
+        if (isAuthenticated()) {
+            navigate("/");
+        }
+    }, [isAuthenticated, navigate]);
 
     return (
         <Card
@@ -50,16 +73,22 @@ const Register = () => {
         >
             <CardContent>
                 <Typography variant="h6" component="div">
-                    Login
+                    Register
                 </Typography>
                 <Stack spacing={1}>
-                    <TextField id="outlined-basic" label="Email" variant="outlined" />
-                    <TextField id="outlined-basic" label="Password" variant="outlined" />
+                    <TextField id="outlined-basic" label="Email" variant="outlined"
+                        onChange={handleEmailChange}
+                        onKeyUp={handleEmailEnter}
+                        defaultValue="badeanarcis@gmail.com" />
+                    <TextField id="outlined-basic" label="Password" variant="outlined"
+                        onChange={handlePasswordChange}
+                        onKeyUp={handlePasswordEnter}
+                        defaultValue="narcisAdmin123" />
                 </Stack>
             </CardContent>
             <CardActions>
-                <Button onClick={handleSubmit}>Login</Button>
-                <Button onClick={() => navigate("/register")}>Register</Button>
+                <Button onClick={handleSubmit}>Submit</Button>
+                <Button onClick={() => navigate("/login")}>Login</Button>
             </CardActions>
         </Card >
     );

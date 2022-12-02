@@ -93,7 +93,7 @@ const Login = () => {
                 </Stack>
             </CardContent>
             <CardActions>
-                <Button onClick={handleSubmit}>Login</Button>
+                <Button onClick={handleSubmit}>Submit</Button>
                 <Button onClick={() => navigate("/register")}>Register</Button>
             </CardActions>
         </Card >
