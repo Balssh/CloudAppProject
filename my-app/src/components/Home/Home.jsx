@@ -19,13 +19,13 @@ const Home = () => {
         <>
             <CssBaseline />
             <Header style={{
-                position: "absolute",
-                marginss: "auto",
+
             }} />
             <Grid container spacing={3} style={{
-                width: "100%",
-                marginTop: "64px",
-
+                width: "100wh",
+                height: "100vh",
+                marginTop: "25px",
+                backgroundColor: "#f4f1de",
             }}
             >
                 <Grid xs={12} md={2}

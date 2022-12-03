@@ -25,7 +25,7 @@ const Menu = () => {
             }}
             PaperProps={{
                 sx: {
-                    backgroundColor: "#5887FF",
+                    backgroundColor: "#f2cc8f",
                 }
             }}
 

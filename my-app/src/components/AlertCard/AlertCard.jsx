@@ -1,17 +1,30 @@
 import { React, useState, useEffect } from "react";
-
+import axios from "axios";
 import { Typography, Stack, Card, CardContent, CardActions, Button } from "@mui/material";
 import Select from 'react-select'
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 const alertTypes = [
-	{ value: "pothole", label: "Pothole" },
-	{ value: "traffic jam", label: "Traffic Jam" },
-	{ value: "accident", label: "Accident" },
-	{ value: "fallen tree", label: "Fallen Tree" },
-	{ value: "falling plaster", label: "Falling Plaster" },
-	{ value: "other", label: "Other" }
+	// { value: "pothole", label: "Pothole" },
+	// { value: "traffic jam", label: "Traffic Jam" },
+	// { value: "accident", label: "Accident" },
+	// { value: "fallen tree", label: "Fallen Tree" },
+	// { value: "falling plaster", label: "Falling Plaster" },
+	// { value: "other", label: "Other" }
 ];
+
+async function getAlertTypes() {
+	await axios.get("https://cloudbeesapi.azurewebsites.net/AlertType")
+		.then(
+			(res) => {
+				res.data.map((data) => {
+					alertTypes.push({
+						value: data.id,
+						label: data.type,
+					});
+				});
+			});
+}
 
 const AlertCard = ({ handleSelect }) => {
 
@@ -20,6 +33,8 @@ const AlertCard = ({ handleSelect }) => {
 	const [alert, setAlert] = useState(alertTypes[5]);
 
 	useEffect(() => {
+		// getAlertTypes()
+		// 	.then();
 		geocodeByAddress(location.label)
 			.then(results => getLatLng(results[0]))
 			.then(({ lat, lng }) => {
@@ -28,6 +43,8 @@ const AlertCard = ({ handleSelect }) => {
 			}
 			)
 			.catch(error => console.error(error));
+
+
 	}, [location]);
 
 	return (
@@ -36,6 +53,7 @@ const AlertCard = ({ handleSelect }) => {
 				width: "100%",
 				minWidth: "300px",
 				padding: "10px",
+				backgroundColor: "#f2cc8f",
 			}}
 		>
 			<CardContent>
@@ -63,7 +81,11 @@ const AlertCard = ({ handleSelect }) => {
 				</Stack>
 			</CardContent>
 			<CardActions>
-				<Button variant="contained"
+				<Button
+					sx={{
+						backgroundColor: "#3d405b",
+					}}
+					variant="contained"
 					onClick={() => handleSelect(location, alert, coordinates)}
 				>
 					Submit

@@ -19,12 +19,14 @@ const Login = () => {
             { "email": email, "password": password }
         ).then((res) => {
             console.log(res.data.token);
+
             signIn({
                 token: res.data.token,
                 expiresIn: 3600,
                 tokenType: "Bearer",
                 authState: { email: email },
             });
+            localStorage.setItem("token", res.data.token);
             navigate("/");
         }).catch((err) => {
             console.log(err.response.data.message);
@@ -93,8 +95,21 @@ const Login = () => {
                 </Stack>
             </CardContent>
             <CardActions>
-                <Button onClick={handleSubmit}>Submit</Button>
-                <Button onClick={() => navigate("/register")}>Register</Button>
+                <Button onClick={handleSubmit}
+                    sx={{
+                        backgroundColor: "#3d405b",
+                    }}
+                >
+                    Submit
+                </Button>
+                <Button
+                    sx={{
+                        backgroundColor: "#3d405b",
+                    }}
+                    onClick={() => navigate("/register")}
+                >
+                    Register
+                </Button>
             </CardActions>
         </Card >
     );
