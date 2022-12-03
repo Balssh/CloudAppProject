@@ -3,21 +3,26 @@ import { Box, Typography } from "@mui/material";
 import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
 
 const Map = ({ center, alertsList }) => {
-    const [map, setMap] = useState(null)
-
+    // const [map, setMap] = useState(null)
+    const mapRef = useRef();
+    const [alerts, setAlerts] = useState(alertsList);
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
     })
-    const onLoad = useCallback(function callback(map) {
-        const bounds = new window.google.maps.LatLngBounds(center);
-        console.log(alertsList.length, alertsList);
-        map.fitBounds(bounds);
-        setMap(map)
-    }, [])
-    const onUnmount = useCallback(function callback(map) {
-        setMap(null)
-    }, [])
 
+    const onLoad = useCallback((map) => {
+        const bounds = new window.google.maps.LatLngBounds(center);
+        setAlerts(alertsList);
+        alerts.map((alert) => {
+            const location = new window.google.maps.LatLng(
+                alert.lat,
+                alert.lng
+            );
+            bounds.extend(location);
+        });
+        map.fitBounds(bounds);
+        mapRef.current = map
+    }, []);
     return isLoaded ? (
         <Box
             sx={{
@@ -39,16 +44,23 @@ const Map = ({ center, alertsList }) => {
                     border: "2px solid black",
                 }}
                 options={{
-                    maxZoom: 16,
+                    maxZoom: 18,
                     minZoom: 10,
                 }}
                 onLoad={onLoad}
-                onUnmount={onUnmount}
             >
-                {/* <MarkerF position={center} /> */}
-
-                {alertsList.map((alert, index) => (
-                    <MarkerF key={index} position={alert} />))}
+                {alerts.map((alert, ind) => {
+                    console.log(alert, ind);
+                    return <MarkerF key={ind} position={alert} />;
+                })}
+                <MarkerF position={center}
+                    icon={{
+                        // path: google.maps.SymbolPath.CIRCLE,
+                        url: ("https://www.svgrepo.com/show/429985/christmas-santa-claus.svg"),
+                        fillColor: '#EB00FF',
+                        scale: 7,
+                    }}
+                />
             </GoogleMap>
         </Box>
     ) : <></>;

@@ -61,7 +61,7 @@ const Home = () => {
                         alignItems: "center",
                     }}
                 >
-                    <Map center={center} alertsList={[center]}/>
+                    <Map center={center} alertsList={[]}/>
                 </Grid>
             </Grid>
         </>

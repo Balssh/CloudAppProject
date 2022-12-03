@@ -8,11 +8,12 @@ import Menu from "../Menu/Menu";
 import AlertCard from "../AlertCard/AlertCard";
 import Map from "../Map/Map";
 
-async function alerts(setCenter, setAlertsList, alertsList) {
-    setAlertsList([]);
+
+async function alerts(setCenter, alertsList) {
     await axios.get("https://cloudbeesapi.azurewebsites.net/Alert", {
     }).then((res) => {
         res.data.forEach(element => {
+            // console.log(element);
             alertsList.push({ lat: element.latitude, lng: element.longitude });
         });
         if (alertsList.length > 0) {
@@ -33,14 +34,24 @@ async function alerts(setCenter, setAlertsList, alertsList) {
 }
 
 const DashboardUser = () => {
+    const [isReady, setIsReady] = useState(false);
     const [alertsList, setAlertsList] = useState([]);
     const [center, setCenter] = useState({ lat: 45.757533, lng: 21.229066 });
 
     useEffect(() => {
-        alerts(setCenter, setAlertsList, alertsList);
-        console.log(alertsList);
+        const fetchData = async () => {
+            setAlertsList([]);
+            await alerts(setCenter, alertsList);
+        }
+        fetchData()
+            .then(() => {
+                // console.log(alertsList)
+                setAlertsList(alertsList);
+                setIsReady(true);
+            })
+            .catch(console.error);
     }, []);
-    return (
+    return isReady ? (
         <>
             <CssBaseline />
             <Header />
@@ -74,11 +85,11 @@ const DashboardUser = () => {
                         alignItems: "center",
                     }}
                 >
-                    <Map center={center}  alertsList={alertsList}/>
+                    <Map center={center} alertsList={alertsList} />
                 </Grid>
             </Grid>
         </>
-    );
+    ) : <></>;
 }
 
 export default DashboardUser;
