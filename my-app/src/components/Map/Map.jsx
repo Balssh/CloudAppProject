@@ -1,12 +1,24 @@
 import { React, useState, useRef, useEffect, useCallback } from "react";
-import { Box } from "@mui/material";
-import { GoogleMap, MarkerF } from "@react-google-maps/api";
+import { Box, Typography } from "@mui/material";
+import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
 
-const Map = ({center}) => {
-    const mapRef = useRef();
+const Map = ({ center, alertsList }) => {
+    const [map, setMap] = useState(null)
 
-    const onLoad = useCallback((map) => (mapRef.current = map), []);
-    return (
+    const { isLoaded } = useJsApiLoader({
+        id: 'google-map-script',
+    })
+    const onLoad = useCallback(function callback(map) {
+        const bounds = new window.google.maps.LatLngBounds(center);
+        console.log(alertsList.length, alertsList);
+        map.fitBounds(bounds);
+        setMap(map)
+    }, [])
+    const onUnmount = useCallback(function callback(map) {
+        setMap(null)
+    }, [])
+
+    return isLoaded ? (
         <Box
             sx={{
                 position: "relative",
@@ -26,14 +38,20 @@ const Map = ({center}) => {
                     height: "100%",
                     border: "2px solid black",
                 }}
+                options={{
+                    maxZoom: 16,
+                    minZoom: 10,
+                }}
                 onLoad={onLoad}
+                onUnmount={onUnmount}
             >
-                <MarkerF position={center} />
-                {/* <MarkerF position={{ lat: 45.757533, lng: 21.229066 }} /> */}
-            </GoogleMap>
+                {/* <MarkerF position={center} /> */}
 
+                {alertsList.map((alert, index) => (
+                    <MarkerF key={index} position={alert} />))}
+            </GoogleMap>
         </Box>
-    );
+    ) : <></>;
 }
 
 export default Map;

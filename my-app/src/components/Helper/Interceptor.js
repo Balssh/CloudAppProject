@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useIsAuthenticated, useAuthUser } from 'react-auth-kit';
 
 export function jwtInterceptor() {
 

@@ -8,15 +8,13 @@ import Menu from "../Menu/Menu";
 import AlertCard from "../AlertCard/AlertCard";
 import Map from "../Map/Map";
 
-const alertsList = [];
-async function alerts(setCenter) {
+async function alerts(setCenter, setAlertsList, alertsList) {
+    setAlertsList([]);
     await axios.get("https://cloudbeesapi.azurewebsites.net/Alert", {
     }).then((res) => {
         res.data.forEach(element => {
-            console.log(element);
             alertsList.push({ lat: element.latitude, lng: element.longitude });
         });
-        console.log(alertsList);
         if (alertsList.length > 0) {
             let lat = 0;
             let lng = 0;
@@ -35,11 +33,12 @@ async function alerts(setCenter) {
 }
 
 const DashboardUser = () => {
-
+    const [alertsList, setAlertsList] = useState([]);
     const [center, setCenter] = useState({ lat: 45.757533, lng: 21.229066 });
 
     useEffect(() => {
-        alerts(setCenter);
+        alerts(setCenter, setAlertsList, alertsList);
+        console.log(alertsList);
     }, []);
     return (
         <>
