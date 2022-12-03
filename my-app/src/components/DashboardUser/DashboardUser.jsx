@@ -1,5 +1,5 @@
-import { React, useState } from "react";
-import { CssBaseline } from "@mui/material";
+import { React, useState, useEffect } from "react";
+import { CssBaseline, Box } from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
 import axios from "axios";
 
@@ -8,28 +8,43 @@ import Menu from "../Menu/Menu";
 import AlertCard from "../AlertCard/AlertCard";
 import Map from "../Map/Map";
 
-const Home = () => {
-    const [center, setCenter] = useState({ lat: 45.757533, lng: 21.229066 });
-    async function handleSelect(location, alert, coordinates) {
-        console.log(location, alert, coordinates);
-        setCenter(coordinates);
-
-        await axios.post("https://cloudbeesapi.azurewebsites.net/Alert", {
-            typeId: alert.value,
-            latitude: coordinates.lat,
-            longitude: coordinates.lng,
-            location: location.label,
-        }).then((res) => {
-            console.log(res);
-        }).catch((err) => {
-            console.log(err);
+const alertsList = [];
+async function alerts(setCenter) {
+    await axios.get("https://cloudbeesapi.azurewebsites.net/Alert", {
+    }).then((res) => {
+        res.data.forEach(element => {
+            console.log(element);
+            alertsList.push({ lat: element.latitude, lng: element.longitude });
         });
-    };
+        console.log(alertsList);
+        if (alertsList.length > 0) {
+            let lat = 0;
+            let lng = 0;
+            alertsList.forEach(element => {
+                lat += element.lat;
+                lng += element.lng;
+            })
+            let cntLat = lat / alertsList.length;
+            let cntLng = lng / alertsList.length;
+            console.log(cntLat, cntLng);
+            setCenter({ lat: cntLat, lng: cntLng });
+        }
+    }).catch((err) => {
+        console.log(err);
+    });
+}
 
+const DashboardUser = () => {
+
+    const [center, setCenter] = useState({ lat: 45.757533, lng: 21.229066 });
+
+    useEffect(() => {
+        alerts(setCenter);
+    }, []);
     return (
         <>
             <CssBaseline />
-            <Header/>
+            <Header />
             <Grid container spacing={3} style={{
                 width: "100wh",
                 height: "100vh",
@@ -52,7 +67,6 @@ const Home = () => {
                         alignItems: "center",
                     }}
                 >
-                    <AlertCard handleSelect={handleSelect} />
                 </Grid>
                 <Grid xs={12} md={6}
                     sx={{
@@ -61,11 +75,11 @@ const Home = () => {
                         alignItems: "center",
                     }}
                 >
-                    <Map center={center} />
+                    <Map center={center}  alertsList={alertsList}/>
                 </Grid>
             </Grid>
         </>
     );
 }
 
-export default Home;
+export default DashboardUser;

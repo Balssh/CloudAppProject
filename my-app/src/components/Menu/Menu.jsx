@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Divider } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import { useSignOut } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,6 +15,12 @@ const Menu = () => {
     const handleLogout = () => {
         signOut();
         navigate("/login");
+    };
+    const handleDashboard = () => {
+        navigate("/dashboard");
+    };
+    const handleHome = () => {
+        navigate("/");
     };
 
     return (
@@ -34,11 +41,23 @@ const Menu = () => {
             <Box sx={{ overflow: "auto" }}>
                 <List>
                     <ListItem disablePadding>
-                        <ListItemButton>
+                        <ListItemButton
+                            onClick={handleHome}
+                        >
                             <ListItemIcon>
                                 <HomeIcon />
                             </ListItemIcon>
                             <ListItemText primary="Home" />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton
+                            onClick={handleDashboard}
+                        >
+                            <ListItemIcon>
+                                <DashboardIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Dashboard" />
                         </ListItemButton>
                     </ListItem>
                 </List>

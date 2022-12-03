@@ -4,6 +4,7 @@ import { RequireAuth } from 'react-auth-kit';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
+import DashboardUser from './components/DashboardUser/DashboardUser';
 
 
 const App = () => {
@@ -12,6 +13,11 @@ const App = () => {
 			<Route path="/" element={
 				<RequireAuth loginPath="/login">
 					<Home />
+				</RequireAuth>}>
+			</Route>
+			<Route path="/dashboard" element={
+				<RequireAuth loginPath="/login">
+					<DashboardUser />
 				</RequireAuth>}>
 			</Route>
 			<Route path="/login" element={<Login />}>

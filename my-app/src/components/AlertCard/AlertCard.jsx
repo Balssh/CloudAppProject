@@ -24,18 +24,7 @@ const AlertCard = ({ handleSelect }) => {
 	const [location, setLocation] = useState({ label: "", value: "" });
 	const [coordinates, setCoordinates] = useState({ lat: 45.757533, lng: 21.229066 });
 	const [alert, setAlert] = useState(alertTypes[5]);
-	// const handleSelect = async (location, alert, coordinates) => {
-	// 	await axios.post("https://cloudbeesapi.azurewebsites.net/Alert", {
-	// 		typeId: alert.value,
-	// 		latitude: coordinates.lat,
-	// 		longitude: coordinates.lng,
-	// 		location: location.label,
-	// 	}).then((res) => {
-	// 		console.log(res);
-	// 	}).catch((err) => {
-	// 		console.log(err);
-	// 	});
-	// };
+
 	useEffect(() => {
 		getAlertTypes()
 			.then();
@@ -65,7 +54,7 @@ const AlertCard = ({ handleSelect }) => {
 				<Stack spacing={1}
 				>
 					<GooglePlacesAutocomplete
-						// apiKey="AIzaSyAF--9XqeP0nbm5ZRnFeupvaOu4Ik1PR14"
+					// apiKey="AIzaSyAF--9XqeP0nbm5ZRnFeupvaOu4Ik1PR14"
 						selectProps={{
 							menuPlacement: "auto",
 							menuPosition: "fixed",
