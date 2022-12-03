@@ -15,10 +15,10 @@ const Register = () => {
 
     const handleSubmit = async () => {
         console.log(email, password);
-        await axios.post("https://cloudbeesapi.azurewebsites.net/auth/login",
+        await axios.post("https://cloudbeesapi.azurewebsites.net/auth/register",
             { "email": email, "password": password }
         ).then((res) => {
-            console.log(res.data.token);
+            console.log(res);
             navigate("/login");
         }).catch((err) => {
             console.log(err.response.data.message);

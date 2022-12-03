@@ -4,14 +4,7 @@ import { Typography, Stack, Card, CardContent, CardActions, Button } from "@mui/
 import Select from 'react-select'
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
-const alertTypes = [
-	// { value: "pothole", label: "Pothole" },
-	// { value: "traffic jam", label: "Traffic Jam" },
-	// { value: "accident", label: "Accident" },
-	// { value: "fallen tree", label: "Fallen Tree" },
-	// { value: "falling plaster", label: "Falling Plaster" },
-	// { value: "other", label: "Other" }
-];
+const alertTypes = [];
 
 async function getAlertTypes() {
 	await axios.get("https://cloudbeesapi.azurewebsites.net/AlertType")
@@ -31,10 +24,21 @@ const AlertCard = ({ handleSelect }) => {
 	const [location, setLocation] = useState({ label: "", value: "" });
 	const [coordinates, setCoordinates] = useState({ lat: 45.757533, lng: 21.229066 });
 	const [alert, setAlert] = useState(alertTypes[5]);
-
+	// const handleSelect = async (location, alert, coordinates) => {
+	// 	await axios.post("https://cloudbeesapi.azurewebsites.net/Alert", {
+	// 		typeId: alert.value,
+	// 		latitude: coordinates.lat,
+	// 		longitude: coordinates.lng,
+	// 		location: location.label,
+	// 	}).then((res) => {
+	// 		console.log(res);
+	// 	}).catch((err) => {
+	// 		console.log(err);
+	// 	});
+	// };
 	useEffect(() => {
-		// getAlertTypes()
-		// 	.then();
+		getAlertTypes()
+			.then();
 		geocodeByAddress(location.label)
 			.then(results => getLatLng(results[0]))
 			.then(({ lat, lng }) => {
@@ -43,8 +47,6 @@ const AlertCard = ({ handleSelect }) => {
 			}
 			)
 			.catch(error => console.error(error));
-
-
 	}, [location]);
 
 	return (

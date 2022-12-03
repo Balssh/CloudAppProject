@@ -1,6 +1,7 @@
 import { React, useState } from "react";
-import { CssBaseline} from "@mui/material";
+import { CssBaseline } from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
+import axios from "axios";
 
 import Header from "../Header/Header";
 import Menu from "../Menu/Menu";
@@ -10,9 +11,20 @@ import Map from "../Map/Map";
 
 const Home = () => {
     const [center, setCenter] = useState({ lat: 45.757533, lng: 21.229066 });
-    function handleSelect(location, alert, coordinates) {
+    async function handleSelect(location, alert, coordinates) {
         console.log(location, alert, coordinates);
         setCenter(coordinates);
+
+        await axios.post("https://cloudbeesapi.azurewebsites.net/Alert", {
+            typeId: alert.value,
+            latitude: coordinates.lat,
+            longitude: coordinates.lng,
+            location: location.label,
+        }).then((res) => {
+            console.log(res);
+        }).catch((err) => {
+            console.log(err);
+        });
     };
 
     return (

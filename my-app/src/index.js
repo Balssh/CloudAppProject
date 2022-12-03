@@ -3,15 +3,16 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from 'react-auth-kit';
 import App from './App';
-import { JWTInterceptor } from './components/Helper/Interceptor';
+import { jwtInterceptor } from './components/Helper/Interceptor';
 
-JWTInterceptor();
+jwtInterceptor();
 
 const container = document.getElementById("root")
 createRoot(container).render(
     // <React.StrictMode>
+
     <AuthProvider
-        authType={"cookie"}
+        authType={"localstorage"}
         authName={"_auth"}
         cookieDomain={window.location.hostname}
         cookieSecure={false}

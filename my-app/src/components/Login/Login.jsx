@@ -26,7 +26,6 @@ const Login = () => {
                 tokenType: "Bearer",
                 authState: { email: email },
             });
-            localStorage.setItem("token", res.data.token);
             navigate("/");
         }).catch((err) => {
             console.log(err.response.data.message);

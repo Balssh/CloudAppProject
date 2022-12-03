@@ -1,17 +1,13 @@
 import axios from 'axios';
 import { useIsAuthenticated, useAuthUser } from 'react-auth-kit';
 
-export function JWTInterceptor() {
-    const auth = useAuthUser()
+export function jwtInterceptor() {
+
     axios.interceptors.request.use(request => {
-        // const isLoggedIn = localStorage.getItem("token");
-        const isLoggedIn = auth().user.token;
+        const isLoggedIn = localStorage.getItem("_auth");
         const isApiUrl = request.url.startsWith("https://cloudbeesapi.azurewebsites.net/");
         if (isLoggedIn && isApiUrl) {
             request.headers.Authorization = `Bearer ${isLoggedIn}`;
-        }
-        if (!isLoggedIn) {
-            window.location = '/login';
         }
         return request;
     });
