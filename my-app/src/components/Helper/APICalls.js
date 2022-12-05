@@ -37,7 +37,7 @@ async function getAlertTypes(alertTypes) {
 			});
 }
 
-async function addAlert(location, alert, coordinates, setCenter) {
+async function addAlert(location, alert, coordinates, description, setCenter) {
     console.log(location, alert, coordinates);
     setCenter(coordinates);
 
@@ -46,6 +46,7 @@ async function addAlert(location, alert, coordinates, setCenter) {
         latitude: coordinates.lat,
         longitude: coordinates.lng,
         location: location.label,
+        description: description,
     }).then((res) => {
         console.log(res);
     }).catch((err) => {

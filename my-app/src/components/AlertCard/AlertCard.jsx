@@ -1,19 +1,18 @@
 import { React, useState, useEffect } from "react";
 import axios from "axios";
-import { Typography, Stack, Card, CardContent, CardActions, Button } from "@mui/material";
+import { Typography, Stack, Card, CardContent, CardActions, Button, TextField } from "@mui/material";
 import Select from 'react-select'
-import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
 import { getAlertTypes, addAlert } from "../Helper/APICalls";
 const alertTypes = [];
-
 
 const AlertCard = ({ setCenter }) => {
 
 	const [location, setLocation] = useState({ label: "", value: "" });
 	const [coordinates, setCoordinates] = useState({ lat: 45.757533, lng: 21.229066 });
 	const [alert, setAlert] = useState();
+	const [description, setDescription] = useState("");
 
 	const handleLocationChange = (location) => {
 		setLocation(location);
@@ -68,6 +67,16 @@ const AlertCard = ({ setCenter }) => {
 						onChange={setAlert}
 						placeholder="Select alert type"
 					/>
+					<TextField
+						id="outlined-basic"
+						label="Description"
+						variant="outlined"
+						onChange={setDescription}
+						sx={{
+							backgroundColor: "white",
+							zIndex: 0,
+						}}
+					/>
 				</Stack>
 			</CardContent>
 			<CardActions>
@@ -76,7 +85,7 @@ const AlertCard = ({ setCenter }) => {
 						backgroundColor: "#3d405b",
 					}}
 					variant="contained"
-					onClick={() => addAlert(location, alert, coordinates, setCenter)}
+					onClick={() => addAlert(location, alert, coordinates, description, setCenter)}
 				>
 					Submit
 				</Button>
