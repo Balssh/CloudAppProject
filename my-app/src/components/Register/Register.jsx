@@ -4,6 +4,8 @@ import { useSignIn, useIsAuthenticated } from 'react-auth-kit';
 import { useNavigate } from "react-router-dom";
 import { Typography, Stack, Card, CardContent, CardActions, Button, TextField } from "@mui/material";
 
+import { handleRegister } from "../Helper/APICalls";
+
 const Register = () => {
 
     const [error, setError] = useState("");
@@ -13,23 +15,6 @@ const Register = () => {
     const [lastName, setLastName] = useState("");
     const navigate = useNavigate();
     const isAuthenticated = useIsAuthenticated();
-
-    const handleSubmit = async () => {
-        console.log(email, password);
-        await axios.post("https://cloudbeesapi.azurewebsites.net/auth/register",
-            {
-                "firstName": firstName,
-                "lastName": lastName,
-                "email": email,
-                "password": password
-            }
-        ).then((res) => {
-            console.log(res);
-            navigate("/login");
-        }).catch((err) => {
-            console.log(err.response.data.message);
-        });
-    };
 
     const handleFirstNameChange = (event) => {
         setFirstName(event.target.value);
@@ -119,7 +104,7 @@ const Register = () => {
                 </Stack>
             </CardContent>
             <CardActions>
-                <Button onClick={handleSubmit}>Submit</Button>
+                <Button onClick={() => handleRegister(firstName, lastName, email, password, navigate)}>Submit</Button>
                 <Button onClick={() => navigate("/login")}>Login</Button>
             </CardActions>
         </Card >

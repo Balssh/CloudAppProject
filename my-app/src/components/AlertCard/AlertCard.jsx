@@ -4,35 +4,34 @@ import { Typography, Stack, Card, CardContent, CardActions, Button } from "@mui/
 import Select from 'react-select'
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+
+import { getAlertTypes, addAlert } from "../Helper/APICalls";
 const alertTypes = [];
 
-async function getAlertTypes() {
-	await axios.get("https://cloudbeesapi.azurewebsites.net/AlertType")
-		.then(
-			(res) => {
-				res.data.map((data) => {
-					alertTypes.push({
-						value: data.id,
-						label: data.type,
-					});
-				});
-			});
-}
 
-const AlertCard = ({ handleSelect }) => {
+const AlertCard = ({ setCenter }) => {
 
 	const [location, setLocation] = useState({ label: "", value: "" });
 	const [coordinates, setCoordinates] = useState({ lat: 45.757533, lng: 21.229066 });
-	const [alert, setAlert] = useState(alertTypes[5]);
+	const [alert, setAlert] = useState();
 
+	const handleLocationChange = (location) => {
+		setLocation(location);
+		geocodeByAddress(location.label)
+			.then(results => getLatLng(results[0]))
+			.then(latLng => {
+				setCoordinates(latLng);
+				setCenter(latLng);
+			})
+			.catch(error => console.error('Error', error));
+	}
 	useEffect(() => {
-		getAlertTypes()
+		getAlertTypes(alertTypes)
 			.then();
 		geocodeByAddress(location.label)
 			.then(results => getLatLng(results[0]))
 			.then(({ lat, lng }) => {
 				setCoordinates({ lat, lng })
-				// console.log('Successfully got latitude and longitude', coordinates.lat, coordinates.lng);
 			}
 			)
 			.catch(error => console.error(error));
@@ -54,11 +53,11 @@ const AlertCard = ({ handleSelect }) => {
 				<Stack spacing={1}
 				>
 					<GooglePlacesAutocomplete
-					// apiKey="AIzaSyAF--9XqeP0nbm5ZRnFeupvaOu4Ik1PR14"
+						// apiKey="AIzaSyAF--9XqeP0nbm5ZRnFeupvaOu4Ik1PR14"
 						selectProps={{
 							menuPlacement: "auto",
 							menuPosition: "fixed",
-							onChange: setLocation,
+							onChange: handleLocationChange,
 						}}
 						placeholder="Location"
 						fetchDetails={true}
@@ -77,7 +76,7 @@ const AlertCard = ({ handleSelect }) => {
 						backgroundColor: "#3d405b",
 					}}
 					variant="contained"
-					onClick={() => handleSelect(location, alert, coordinates)}
+					onClick={() => addAlert(location, alert, coordinates, setCenter)}
 				>
 					Submit
 				</Button>

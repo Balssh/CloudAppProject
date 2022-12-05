@@ -11,21 +11,7 @@ import { useEffect } from "react";
 
 const Home = () => {
     const [center, setCenter] = useState({ lat: 45.757533, lng: 21.229066 });
-    async function handleSelect(location, alert, coordinates) {
-        console.log(location, alert, coordinates);
-        setCenter(coordinates);
 
-        await axios.post("https://cloudbeesapi.azurewebsites.net/Alert", {
-            typeId: alert.value,
-            latitude: coordinates.lat,
-            longitude: coordinates.lng,
-            location: location.label,
-        }).then((res) => {
-            console.log(res);
-        }).catch((err) => {
-            console.log(err);
-        });
-    };
     return (
         <>
             <CssBaseline />
@@ -52,7 +38,7 @@ const Home = () => {
                         alignItems: "center",
                     }}
                 >
-                    <AlertCard handleSelect={handleSelect} />
+                    <AlertCard setCenter={setCenter} />
                 </Grid>
                 <Grid xs={12} md={6}
                     sx={{

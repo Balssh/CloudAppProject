@@ -7,31 +7,7 @@ import Header from "../Header/Header";
 import Menu from "../Menu/Menu";
 import AlertCard from "../AlertCard/AlertCard";
 import Map from "../Map/Map";
-
-
-async function alerts(setCenter, alertsList) {
-    await axios.get("https://cloudbeesapi.azurewebsites.net/Alert", {
-    }).then((res) => {
-        res.data.forEach(element => {
-            // console.log(element);
-            alertsList.push({ lat: element.latitude, lng: element.longitude });
-        });
-        if (alertsList.length > 0) {
-            let lat = 0;
-            let lng = 0;
-            alertsList.forEach(element => {
-                lat += element.lat;
-                lng += element.lng;
-            })
-            let cntLat = lat / alertsList.length;
-            let cntLng = lng / alertsList.length;
-            // console.log(cntLat, cntLng);
-            setCenter({ lat: cntLat, lng: cntLng });
-        }
-    }).catch((err) => {
-        console.log(err);
-    });
-}
+import { getAlertsList } from "../Helper/APICalls";
 
 const DashboardUser = () => {
     const [isReady, setIsReady] = useState(false);
@@ -41,7 +17,7 @@ const DashboardUser = () => {
     useEffect(() => {
         const fetchData = async () => {
             setAlertsList([]);
-            await alerts(setCenter, alertsList);
+            await getAlertsList(setCenter, alertsList);
         }
         fetchData()
             .then(() => {
@@ -51,7 +27,7 @@ const DashboardUser = () => {
             })
             .catch(console.error);
     }, []);
-    return isReady ? (
+    return (
         <>
             <CssBaseline />
             <Header />
@@ -85,11 +61,11 @@ const DashboardUser = () => {
                         alignItems: "center",
                     }}
                 >
-                    <Map center={center} alertsList={alertsList} />
+                    {isReady && <Map center={center} alertsList={alertsList} />}
                 </Grid>
             </Grid>
         </>
-    ) : <></>;
+    );
 }
 
 export default DashboardUser;

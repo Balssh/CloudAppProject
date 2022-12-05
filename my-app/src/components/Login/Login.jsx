@@ -4,6 +4,8 @@ import { useSignIn, useIsAuthenticated } from 'react-auth-kit';
 import { useNavigate } from "react-router-dom";
 import { Typography, Stack, Card, CardContent, CardActions, Button, TextField, Checkbox, FormGroup, FormControlLabel } from "@mui/material";
 
+import { handleLogin } from "../Helper/APICalls";
+
 const Login = () => {
 
     const [error, setError] = useState("");
@@ -13,28 +15,6 @@ const Login = () => {
     const signIn = useSignIn();
     const navigate = useNavigate();
     const isAuthenticated = useIsAuthenticated();
-
-    const handleSubmit = async () => {
-        console.log(email, password);
-        await axios.post("https://cloudbeesapi.azurewebsites.net/auth/login",
-            {
-                "email": email,
-                "password": password,
-                "rememberMe": rememberMe
-            }
-        ).then((res) => {
-            console.log(res.data.token, res.data.expiresIn);
-            signIn({
-                token: res.data.token,
-                expiresIn: res.data.expiresIn,
-                tokenType: "Bearer",
-                authState: { email: email },
-            });
-            navigate("/");
-        }).catch((err) => {
-            console.log(err.response.data.message);
-        });
-    };
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -107,7 +87,7 @@ const Login = () => {
                         onChange={handleRememberMeChange}
                     />
                 </FormGroup>
-                <Button onClick={handleSubmit}
+                <Button onClick={() => handleLogin(email, password, rememberMe, navigate, signIn)}
                     sx={{
                         backgroundColor: "#3d405b",
                     }}

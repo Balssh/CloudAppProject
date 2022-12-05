@@ -45,7 +45,7 @@ const Map = ({ center, alertsList }) => {
                 }}
                 options={{
                     maxZoom: 18,
-                    minZoom: 10,
+                    minZoom: 0,
                 }}
                 onLoad={onLoad}
             >
