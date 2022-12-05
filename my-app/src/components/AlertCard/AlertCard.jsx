@@ -5,7 +5,6 @@ import Select from 'react-select'
 import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
 import { getAlertTypes, addAlert } from "../Helper/APICalls";
-const alertTypes = [];
 
 const AlertCard = ({ setCenter }) => {
 
@@ -13,6 +12,7 @@ const AlertCard = ({ setCenter }) => {
 	const [coordinates, setCoordinates] = useState({ lat: 45.757533, lng: 21.229066 });
 	const [alert, setAlert] = useState();
 	const [description, setDescription] = useState("");
+	const [alertTypes, setAlertTypes] = useState([]);
 
 	const handleLocationChange = (location) => {
 		setLocation(location);
@@ -24,9 +24,21 @@ const AlertCard = ({ setCenter }) => {
 			})
 			.catch(error => console.error('Error', error));
 	}
+
 	useEffect(() => {
-		getAlertTypes(alertTypes)
-			.then();
+        const fetchData = async () => {
+            setAlertTypes([]);
+            await getAlertTypes(alertTypes);
+        }
+        fetchData()
+            .then(() => {
+                // console.log(alertsList)
+                setAlertTypes(alertTypes);
+            })
+            .catch(console.error);
+    }, []);
+
+	useEffect(() => {
 		geocodeByAddress(location.label)
 			.then(results => getLatLng(results[0]))
 			.then(({ lat, lng }) => {
@@ -71,7 +83,7 @@ const AlertCard = ({ setCenter }) => {
 						id="outlined-basic"
 						label="Description"
 						variant="outlined"
-						onChange={setDescription}
+						onChange={e => setDescription(e.target.value)}
 						sx={{
 							backgroundColor: "white",
 							zIndex: 0,
