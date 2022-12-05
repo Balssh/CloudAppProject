@@ -9,20 +9,34 @@ const Register = () => {
     const [error, setError] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const signIn = useSignIn();
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const navigate = useNavigate();
     const isAuthenticated = useIsAuthenticated();
 
     const handleSubmit = async () => {
         console.log(email, password);
         await axios.post("https://cloudbeesapi.azurewebsites.net/auth/register",
-            { "email": email, "password": password }
+            {
+                "firstName": firstName,
+                "lastName": lastName,
+                "email": email,
+                "password": password
+            }
         ).then((res) => {
             console.log(res);
             navigate("/login");
         }).catch((err) => {
             console.log(err.response.data.message);
         });
+    };
+
+    const handleFirstNameChange = (event) => {
+        setFirstName(event.target.value);
+    };
+
+    const handleLastNameChange = (event) => {
+        setLastName(event.target.value);
     };
 
     const handleEmailChange = (event) => {
@@ -33,23 +47,33 @@ const Register = () => {
         setPassword(event.target.value);
     };
 
+    const handleFirstNameEnter = (event) => {
+        if (event.keyCode === 13) {
+            setFirstName(event.target.value);
+        }
+    };
+
+    const handleLastNameEnter = (event) => {
+        if (event.keyCode === 13) {
+            setLastName(event.target.value);
+        }
+    };
+
     const handleEmailEnter = (event) => {
         if (event.keyCode === 13) {
-            // console.log("email changed: ", event.target.value);
             setEmail(event.target.value);
         }
     };
 
     const handlePasswordEnter = (event) => {
         if (event.keyCode === 13) {
-            // console.log("password changed: ", event.target.value);
             setPassword(event.target.value);
         }
     };
 
     useEffect(() => {
-        console.log(email, password)
-    }, [email, password]);
+        console.log(firstName, lastName, email, password)
+    }, [firstName, lastName, email, password]);
 
     useEffect(() => {
         if (isAuthenticated()) {
@@ -76,6 +100,14 @@ const Register = () => {
                     Register
                 </Typography>
                 <Stack spacing={1}>
+                    <TextField id="outlined-basic" label="First Name" variant="outlined"
+                        onChange={handleFirstNameChange}
+                        onKeyUp={handleFirstNameEnter}
+                        defaultValue="Narcis" />
+                    <TextField id="outlined-basic" label="Last Name" variant="outlined"
+                        onChange={handleLastNameChange}
+                        onKeyUp={handleLastNameEnter}
+                        defaultValue="Badea" />
                     <TextField id="outlined-basic" label="Email" variant="outlined"
                         onChange={handleEmailChange}
                         onKeyUp={handleEmailEnter}

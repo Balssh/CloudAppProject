@@ -7,6 +7,7 @@ import Header from "../Header/Header";
 import Menu from "../Menu/Menu";
 import AlertCard from "../AlertCard/AlertCard";
 import Map from "../Map/Map";
+import { useEffect } from "react";
 
 const Home = () => {
     const [center, setCenter] = useState({ lat: 45.757533, lng: 21.229066 });
@@ -25,11 +26,10 @@ const Home = () => {
             console.log(err);
         });
     };
-
     return (
         <>
             <CssBaseline />
-            <Header/>
+            <Header />
             <Grid container spacing={3} style={{
                 width: "100wh",
                 height: "100vh",
@@ -61,7 +61,7 @@ const Home = () => {
                         alignItems: "center",
                     }}
                 >
-                    <Map center={center} alertsList={[]}/>
+                    <Map center={center} alertsList={[]} />
                 </Grid>
             </Grid>
         </>

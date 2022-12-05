@@ -25,7 +25,7 @@ async function alerts(setCenter, alertsList) {
             })
             let cntLat = lat / alertsList.length;
             let cntLng = lng / alertsList.length;
-            console.log(cntLat, cntLng);
+            // console.log(cntLat, cntLng);
             setCenter({ lat: cntLat, lng: cntLng });
         }
     }).catch((err) => {

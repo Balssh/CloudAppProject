@@ -50,7 +50,7 @@ const Map = ({ center, alertsList }) => {
                 onLoad={onLoad}
             >
                 {alerts.map((alert, ind) => {
-                    console.log(alert, ind);
+                    // console.log(alert, ind);
                     return <MarkerF key={ind} position={alert} />;
                 })}
                 <MarkerF position={center}

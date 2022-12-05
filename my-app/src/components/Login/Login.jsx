@@ -2,13 +2,14 @@ import { React, useState, useEffect } from "react";
 import axios, { AxiosError } from 'axios';
 import { useSignIn, useIsAuthenticated } from 'react-auth-kit';
 import { useNavigate } from "react-router-dom";
-import { Typography, Stack, Card, CardContent, CardActions, Button, TextField } from "@mui/material";
+import { Typography, Stack, Card, CardContent, CardActions, Button, TextField, Checkbox, FormGroup, FormControlLabel } from "@mui/material";
 
 const Login = () => {
 
     const [error, setError] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [rememberMe, setRememberMe] = useState(false);
     const signIn = useSignIn();
     const navigate = useNavigate();
     const isAuthenticated = useIsAuthenticated();
@@ -16,13 +17,16 @@ const Login = () => {
     const handleSubmit = async () => {
         console.log(email, password);
         await axios.post("https://cloudbeesapi.azurewebsites.net/auth/login",
-            { "email": email, "password": password }
+            {
+                "email": email,
+                "password": password,
+                "rememberMe": rememberMe
+            }
         ).then((res) => {
-            console.log(res.data.token);
-
+            console.log(res.data.token, res.data.expiresIn);
             signIn({
                 token: res.data.token,
-                expiresIn: 3600,
+                expiresIn: res.data.expiresIn,
                 tokenType: "Bearer",
                 authState: { email: email },
             });
@@ -52,6 +56,10 @@ const Login = () => {
             // console.log("password changed: ", event.target.value);
             setPassword(event.target.value);
         }
+    };
+
+    const handleRememberMeChange = (event) => {
+        setRememberMe(event.target.checked);
     };
 
     useEffect(() => {
@@ -94,6 +102,11 @@ const Login = () => {
                 </Stack>
             </CardContent>
             <CardActions>
+                <FormGroup>
+                    <FormControlLabel control={<Checkbox />} label="Remember me"
+                        onChange={handleRememberMeChange}
+                    />
+                </FormGroup>
                 <Button onClick={handleSubmit}
                     sx={{
                         backgroundColor: "#3d405b",
