@@ -53,7 +53,7 @@ const Home = () => {
                             height: "500px",
                             zIndex: 1,
                             "&hover": { zIndex: 2 },
-                            maxWidth: "90%",
+
                         }}
                     >
                         <Map center={center} alertsList={[]} />

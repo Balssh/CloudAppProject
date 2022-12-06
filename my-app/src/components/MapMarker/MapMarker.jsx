@@ -8,7 +8,13 @@ const MapMarker = ({ ind, markerData }) => {
     const [marker, setMarker] = useState({});
 
     const onMarkerClick = (event) => {
-        setShowInfoWindow(true);
+        if (showInfoWindow) {
+            setShowInfoWindow(false);
+        }
+        else {
+            setShowInfoWindow(true);
+        }
+
     }
 
     const onInfoWindowClose = () => {

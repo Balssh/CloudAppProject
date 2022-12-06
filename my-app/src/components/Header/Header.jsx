@@ -15,8 +15,6 @@ const Header = () => {
         >
             <Toolbar
                 sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
                     backgroundColor: "#e07a5f",
                 }}>
                 <Typography variant="h5"
@@ -26,7 +24,7 @@ const Header = () => {
                             display: "block",
                         },
                     }}>
-                    CityDanger
+                    City Dangers
                 </Typography>
             </Toolbar>
         </AppBar>

@@ -40,20 +40,23 @@ const AlertCard = ({ setCenter }) => {
     }, []);
 
 	useEffect(() => {
-		geocodeByAddress(location.label)
+		if(location.label !== "") {
+			geocodeByAddress(location.label)
 			.then(results => getLatLng(results[0]))
 			.then(({ lat, lng }) => {
 				setCoordinates({ lat, lng })
 			}
 			)
 			.catch(error => console.error(error));
+		}
 	}, [location]);
 
 	return (
 		<Card
 			sx={{
 				width: "100%",
-				minWidth: "200px",
+				margin: "auto",
+				// minWidth: "200px",
 				padding: "10px",
 				backgroundColor: "#f2cc8f",
 			}}

@@ -7,9 +7,9 @@ import MapMarker from "../MapMarker/MapMarker";
 const Map = ({ center, alertsList }) => {
     const mapRef = useRef();
     const [alerts, setAlerts] = useState(alertsList);
-    const { isLoaded } = useJsApiLoader({
-        id: 'google-map-script',
-    })
+    // const { isLoaded } = useJsApiLoader({
+    //     id: 'google-map-script',
+    // })
 
     const onLoad = useCallback((map) => {
         const bounds = new window.google.maps.LatLngBounds(center);
@@ -25,7 +25,7 @@ const Map = ({ center, alertsList }) => {
         mapRef.current = map
     }, []);
 
-    return isLoaded ? (
+    return true ? (
         <GoogleMap
             center={center}
             zoom={15}
