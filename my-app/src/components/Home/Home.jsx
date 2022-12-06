@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Box } from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
 import axios from "axios";
 
@@ -7,7 +7,6 @@ import Header from "../Header/Header";
 import Menu from "../Menu/Menu";
 import AlertCard from "../AlertCard/AlertCard";
 import Map from "../Map/Map";
-import { useEffect } from "react";
 
 const Home = () => {
     const [center, setCenter] = useState({ lat: 45.757533, lng: 21.229066 });
@@ -47,7 +46,18 @@ const Home = () => {
                         alignItems: "center",
                     }}
                 >
-                    <Map center={center} alertsList={[]} />
+                    <Box
+                        sx={{
+                            position: "relative",
+                            width: "500px",
+                            height: "500px",
+                            zIndex: 1,
+                            "&hover": { zIndex: 2 },
+                            maxWidth: "90%",
+                        }}
+                    >
+                        <Map center={center} alertsList={[]} />
+                    </Box>
                 </Grid>
             </Grid>
         </>

@@ -14,6 +14,7 @@ const AlertCard = ({ setCenter }) => {
 	const [description, setDescription] = useState("");
 	const [alertTypes, setAlertTypes] = useState([]);
 
+
 	const handleLocationChange = (location) => {
 		setLocation(location);
 		geocodeByAddress(location.label)
@@ -52,7 +53,7 @@ const AlertCard = ({ setCenter }) => {
 		<Card
 			sx={{
 				width: "100%",
-				minWidth: "300px",
+				minWidth: "200px",
 				padding: "10px",
 				backgroundColor: "#f2cc8f",
 			}}

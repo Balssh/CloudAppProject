@@ -23,6 +23,7 @@ const DashboardUser = () => {
             .then(() => {
                 // console.log(alertsList)
                 setAlertsList(alertsList);
+                console.log(alertsList)
                 setIsReady(true);
             })
             .catch(console.error);
@@ -61,7 +62,18 @@ const DashboardUser = () => {
                         alignItems: "center",
                     }}
                 >
-                    {isReady && <Map center={center} alertsList={alertsList} />}
+                    <Box
+                        sx={{
+                            position: "relative",
+                            width: "700px",
+                            height: "600px",
+                            zIndex: 1,
+                            "&hover": { zIndex: 2 },
+                            maxWidth: "90%",
+                        }}
+                    >
+                        {isReady && <Map center={center} alertsList={alertsList} />}
+                    </Box>
                 </Grid>
             </Grid>
         </>

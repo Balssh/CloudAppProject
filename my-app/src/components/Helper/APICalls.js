@@ -5,14 +5,14 @@ async function getAlertsList(setCenter, alertsList) {
     }).then((res) => {
         res.data.forEach(element => {
             // console.log(element);
-            alertsList.push({ lat: element.latitude, lng: element.longitude });
+            alertsList.push(element);
         });
         if (alertsList.length > 0) {
             let lat = 0;
             let lng = 0;
             alertsList.forEach(element => {
-                lat += element.lat;
-                lng += element.lng;
+                lat += element.latitude;
+                lng += element.longitude;
             })
             let cntLat = lat / alertsList.length;
             let cntLng = lng / alertsList.length;
@@ -34,7 +34,6 @@ async function getAlertTypes(alertTypes) {
 						label: data.type,
 					});
 				});
-                // setAlertTypes(alertTypes);
 			});
 }
 
