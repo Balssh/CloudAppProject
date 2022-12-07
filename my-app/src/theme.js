@@ -102,7 +102,7 @@ export const tokens = (mode) => ({
           500: "#db4f4a",
           600: "#e2726e",
           700: "#e99592",
-          700: "#f1b9b7",
+          800: "#f1b9b7",
           900: "#f8dcdb",
         },
         blueAccent: {
@@ -194,7 +194,7 @@ export const themeSettings = (mode) => {
 };
 
 // context setup
-export const ColorModeCotnext = createContext({
+export const ColorModeContext = createContext({
   toggleColorMode: () => {},
 });
 

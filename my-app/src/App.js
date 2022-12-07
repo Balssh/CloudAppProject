@@ -1,31 +1,40 @@
-import { Routes, Route } from 'react-router-dom';
-import { RequireAuth } from 'react-auth-kit';
+import { ColorModeContext, useMode } from "./theme";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { Routes, Rotue } from "react-router-dom";
 
-import Home from './components/Home/Home';
-import Login from './components/Login/Login';
-import Register from './components/Register/Register';
-import DashboardUser from './components/DashboardUser/DashboardUser';
-
+import Topbar from "./scenes/global/Topbar";
+import Sidebar from "./scenes/global/Sidebar";
+import Dashboard from "./scenes/dashboard";
+// import Team from "./scenes/team";
+// import Invoices from "./scenes/invoices";
+// import Contacts from "./scenes/contacts";
+// import Bar from "./scenes/contacts";
+// import Line from "./scenes/contacts";
+import Login from "./scenes/login";
+import Register from "./scenes/register";
 
 const App = () => {
-	return (
-		<Routes>
-			<Route path="/" element={
-				<RequireAuth loginPath="/login">
-					<Home />
-				</RequireAuth>}>
-			</Route>
-			<Route path="/dashboard" element={
-				<RequireAuth loginPath="/login">
-					<DashboardUser />
-				</RequireAuth>}>
-			</Route>
-			<Route path="/login" element={<Login />}>
-			</Route>
-			<Route path="/register" element={<Register />}>
-			</Route>
-		</Routes>
-	);
-}
+  const [theme, colorMode] = useMode();
+
+  return (
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className="app">
+		  <Sidebar />
+          <main className="content">
+            <Topbar/>
+			<Routes>
+				<Route path="/" element={<Dashboard />}/>
+				<Route path="/login" element={<Login />}/>
+				<Route path="/register" element={<Register />}/>
+				{/* <Route path="/" element={<Dashboard />}/> */}
+			</Routes>
+          </main>
+        </div>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
+  );
+};
 
 export default App;
