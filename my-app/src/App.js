@@ -1,40 +1,57 @@
-import { ColorModeContext, useMode } from "./theme";
+import { Routes, Route } from "react-router-dom";
+import { RequireAuth } from "react-auth-kit";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { Routes, Rotue } from "react-router-dom";
+import { ColorModeContext, useMode } from "./theme";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
-import Dashboard from "./scenes/dashboard";
-// import Team from "./scenes/team";
-// import Invoices from "./scenes/invoices";
-// import Contacts from "./scenes/contacts";
-// import Bar from "./scenes/contacts";
-// import Line from "./scenes/contacts";
-import Login from "./scenes/login";
-import Register from "./scenes/register";
+import Dashboard from "./scenes/dashboard/Dashboard";
+import Login from "./components/login/Login";
+import Register from "./components/register/Register";
 
-const App = () => {
+function App() {
   const [theme, colorMode] = useMode();
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className="app">
-		  <Sidebar />
-          <main className="content">
-            <Topbar/>
-			<Routes>
-				<Route path="/" element={<Dashboard />}/>
-				<Route path="/login" element={<Login />}/>
-				<Route path="/register" element={<Register />}/>
-				{/* <Route path="/" element={<Dashboard />}/> */}
-			</Routes>
-          </main>
-        </div>
+        <Grid2
+          container
+          spacing={2}
+          sx={{
+            height: "100vh",
+            width: "100vw",
+          }}
+        >
+          <Grid2 xs="auto">
+            <Sidebar />
+          </Grid2>
+
+          <Grid2
+            sx={{
+              flexGrow: 1,
+            }}
+          >
+            <Topbar />
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <RequireAuth loginPath="/login">
+                    <Dashboard />
+                  </RequireAuth>
+                }
+              />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />}/>
+            </Routes>
+          </Grid2>
+        </Grid2>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
-};
+}
 
 export default App;
