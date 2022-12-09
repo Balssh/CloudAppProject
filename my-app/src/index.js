@@ -22,17 +22,4 @@ createRoot(container).render(
       </ProSidebarProvider>
     </BrowserRouter>
   </AuthProvider>
-  // <React.StrictMode>
-
-  // <AuthProvider
-  //     authType={"localstorage"}
-  //     authName={"_auth"}
-  //     cookieDomain={window.location.hostname}
-  //     cookieSecure={false}
-  // >
-  //     <BrowserRouter>
-  //         <App />
-  //     </BrowserRouter>
-  // </AuthProvider>
-  // </React.StrictMode>
 );

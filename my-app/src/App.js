@@ -6,7 +6,7 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
-import Dashboard from "./scenes/dashboard/Dashboard";
+import Home from "./scenes/home/Home";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 
@@ -19,13 +19,17 @@ function App() {
         <CssBaseline />
         <Grid2
           container
+          wrap="nowrap"
           spacing={2}
           sx={{
             height: "100vh",
             width: "100vw",
+            overflow: "hidden",
+
           }}
         >
-          <Grid2 xs="auto">
+          <Grid2 xs="auto"
+          >
             <Sidebar />
           </Grid2>
 
@@ -40,7 +44,7 @@ function App() {
                 path="/"
                 element={
                   <RequireAuth loginPath="/login">
-                    <Dashboard />
+                    <Home />
                   </RequireAuth>
                 }
               />

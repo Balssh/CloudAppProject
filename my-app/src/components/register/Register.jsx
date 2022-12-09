@@ -85,6 +85,13 @@ const Register = () => {
       showPassword: false,
     },
     onSubmit: (values) => {
+      handleRegister(
+        values.firstName,
+        values.lastName,
+        values.email,
+        values.password,
+        navigate
+      );
       alert(JSON.stringify(values, null, 2));
     },
   });
@@ -133,19 +140,7 @@ const Register = () => {
           sx={{
             backgroundColor: colors.primary[400],
             fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-            margin: "auto",
-          }}
-          variant="contained"
-          fullWidth
-          type="submit"
-        >
-          Submit
-        </Button>
-        <Button
-          sx={{
-            backgroundColor: colors.primary[400],
-            fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-            mt: 1,
+            mb: 1,
           }}
           variant="contained"
           fullWidth
@@ -153,6 +148,18 @@ const Register = () => {
           to="/login"
         >
           Login
+        </Button>
+        <Button
+          sx={{
+            backgroundColor: colors.primary[400],
+            fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+            margin: "auto",
+          }}
+          variant="contained"
+          fullWidth
+          type="submit"
+        >
+          Submit
         </Button>
       </form>
     </Box>
