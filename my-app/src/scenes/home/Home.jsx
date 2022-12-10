@@ -26,7 +26,7 @@ const Home = () => {
       }}
     >
       <Stack
-        spacing={2}
+        spacing={4}
         sx={{
           width: "auto",
           height: "auto",
@@ -56,7 +56,7 @@ const Home = () => {
             height: "100%",
           }}
         >
-          <AlertForm />
+          <AlertForm setCenter={setCenter}/>
         </Box>
       </Stack>
     </Box>

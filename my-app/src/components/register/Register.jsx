@@ -92,7 +92,7 @@ const Register = () => {
         values.password,
         navigate
       );
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
     },
   });
 

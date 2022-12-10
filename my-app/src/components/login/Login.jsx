@@ -85,7 +85,7 @@ const Login = () => {
       showPassword: false,
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
       handleLogin(
         values.email,
         values.password,

@@ -1,12 +1,16 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
+import {
+  Box,
+  TextField,
+  Autocomplete,
+  Grid,
+  Typography,
+  InputAdornment,
+} from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
 import parse from "autosuggest-highlight/parse";
 import throttle from "lodash/throttle";
+import AddLocationAltOutlinedIcon from "@mui/icons-material/AddLocationAltOutlined";
 
 const autocompleteService = { current: null };
 
@@ -68,7 +72,26 @@ const AutocompleteMUI = ({ handleLocation }) => {
   return (
     <Autocomplete
       id="autocompleteMUI"
-      sx={{ width: 300 }}
+      fullWidth
+      sx={{
+        "& label.Mui-focused": {
+          color: "green",
+        },
+        "& .MuiInput-underline:after": {
+          borderBottomColor: "green",
+        },
+        "& .MuiOutlinedInput-root": {
+          "& fieldset": {
+            borderColor: "red",
+          },
+          "&:hover fieldset": {
+            borderColor: "yellow",
+          },
+          "&.Mui-focused fieldset": {
+            borderColor: "green",
+          },
+        },
+      }}
       getOptionLabel={(option) =>
         typeof option === "string" ? option : option.description
       }
@@ -87,7 +110,22 @@ const AutocompleteMUI = ({ handleLocation }) => {
         setInputValue(newInputValue);
       }}
       renderInput={(params) => (
-        <TextField {...params} label="Add a location" fullWidth />
+        <TextField
+          {...params}
+          label="Add a location"
+          fullWidth
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: (
+              <>
+              <InputAdornment position="end">
+                <AddLocationAltOutlinedIcon edge="end" />
+              </InputAdornment>
+              {params.InputProps.endAdornment}
+              </>
+            ),
+          }}
+        />
       )}
       renderOption={(props, option) => {
         const matches =

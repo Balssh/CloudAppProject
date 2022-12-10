@@ -4,9 +4,9 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "react-auth-kit";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import App from "./App";
-// import { jwtInterceptor } from './components/Helper/Interceptor';
+import { jwtInterceptor } from './Helper/Interceptor';
 
-// jwtInterceptor();
+jwtInterceptor();
 
 const container = document.getElementById("root");
 createRoot(container).render(

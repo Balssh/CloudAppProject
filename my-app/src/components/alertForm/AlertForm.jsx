@@ -1,14 +1,12 @@
 import {
-  Box,
   Button,
   TextField,
   useTheme,
   InputAdornment,
-  Select,
   MenuItem,
   Stack,
 } from "@mui/material";
-import AddLocationAltOutlinedIcon from "@mui/icons-material/AddLocationAltOutlined";
+
 import CrisisAlertOutlinedIcon from "@mui/icons-material/CrisisAlertOutlined";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import { geocodeByAddress, getLatLng } from "react-google-places-autocomplete";
@@ -20,18 +18,24 @@ import { tokens } from "../../theme";
 import { getAlertTypes, addAlert } from "../../Helper/APICalls";
 import AutocompleteMUI from "../autocomplete/AutocompleteMUI";
 
-const AlertForm = () => {
+const AlertForm = ({ setCenter }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const formik = useFormik({
     initialValues: {
       location: "",
-      latitude: 0,
-      longitude: 0,
+      coordinates: { lat: 0, lng: 0 },
       alertType: "",
       description: "",
     },
     onSubmit: (values) => {
+      addAlert(
+        values.location,
+        values.alertType,
+        values.coordinates,
+        values.description
+      );
+      setCenter(values.coordinates);
       alert(JSON.stringify(values, null, 2));
     },
   });
@@ -40,7 +44,7 @@ const AlertForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       await getAlertTypes().then((data) => {
-        console.log(data);
+        // console.log(data);
         setAlertTypes(data);
       });
     };
@@ -54,31 +58,59 @@ const AlertForm = () => {
     geocodeByAddress(location.description)
       .then((results) => getLatLng(results[0]))
       .then((latLng) => {
-        formik.setFieldValue("latitude", latLng.lat);
-        formik.setFieldValue("longitude", latLng.lng);
-        //   setCenter(latLng);
-        console.log(latLng);
+        formik.setFieldValue("coordinates", latLng);
+        setCenter(latLng);
+        // console.log(latLng);
       })
       .catch((error) => console.error("Error", error));
   };
 
   return (
     <Stack
-      spacing={2}
       sx={{
         width: "300px",
       }}
     >
       <form onSubmit={formik.handleSubmit}>
         <AutocompleteMUI handleLocation={handleLocationChange} />
-
-        <Select
+        <TextField
+          sx={{
+            // TODO: Use theme colors
+            "& label.Mui-focused": {
+              color: "green",
+            },
+            "& .MuiInput-underline:after": {
+              borderBottomColor: "green",
+            },
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "red",
+              },
+              "&:hover fieldset": {
+                borderColor: "yellow",
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "green",
+              },
+            },
+          }}
+          select
+          variant="outlined"
+          margin="normal"
           fullWidth
-          name="alertType"
-          id="alertType"
+          id={"alertType"}
+          name={"alertType"}
+          label={"Alert Type"}
+          type={"text"}
           value={formik.values.alertType}
-          label="Alert Type"
           onChange={formik.handleChange}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <CrisisAlertOutlinedIcon edge="end" sx={{ mr: 2 }} />
+              </InputAdornment>
+            ),
+          }}
         >
           {alertTypes.map((alertType) => {
             return (
@@ -87,7 +119,7 @@ const AlertForm = () => {
               </MenuItem>
             );
           })}
-        </Select>
+        </TextField>
         <TextField
           sx={{
             // TODO: Use theme colors

@@ -41,16 +41,15 @@ async function getAlertTypes() {
     });
 }
 
-async function addAlert(location, alert, coordinates, description, setCenter) {
+async function addAlert(location, alert, coordinates, description) {
   console.log(location, alert, coordinates, description);
-  setCenter(coordinates);
 
   await axios
     .post("https://cloudbeesapi.azurewebsites.net/Alert", {
-      typeId: alert.value,
+      typeId: alert,
       latitude: coordinates.lat,
       longitude: coordinates.lng,
-      location: location.label,
+      location: location,
       description: description,
     })
     .then((res) => {
