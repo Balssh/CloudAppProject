@@ -11,7 +11,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       await getAlertsList().then((data) => {
-        console.log(data);
+        // console.log(data);
         setAlertsList(data[0]);
         setCenter(data[1]);
         setIsReady(true);
@@ -35,7 +35,6 @@ const Dashboard = () => {
             height: "300px",
             zIndex: 1,
             "&hover": { zIndex: 2 },
-            borderCollapse: "separate",
             borderRadius: "20px",
             overflow: "hidden",
           }}
