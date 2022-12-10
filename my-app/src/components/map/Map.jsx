@@ -1,13 +1,12 @@
 import { React, useState, useRef, useEffect, useCallback } from "react";
-import { Box, Typography } from "@mui/material";
 import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
-
+import { MapStyle } from "./mapStyle";
 import MapMarker from "../mapMarker/MapMarker";
 
 const Map = ({ center, alertsList }) => {
   const mapRef = useRef();
   const [alerts, setAlerts] = useState(alertsList);
-
+  // console.log();
   const onLoad = useCallback((map) => {
     const bounds = new window.google.maps.LatLngBounds(center);
     setAlerts(alertsList);
@@ -36,6 +35,7 @@ const Map = ({ center, alertsList }) => {
           maxZoom: 18,
           minZoom: 0,
           disableDefaultUI: true,
+          styles: MapStyle(),
         }}
         onLoad={onLoad}
       >
@@ -47,9 +47,9 @@ const Map = ({ center, alertsList }) => {
           position={center}
           icon={{
             // path: google.maps.SymbolPath.CIRCLE,
+            // https://www.flaticon.com/free-icons/google-maps
+            // https://www.svgrepo.com/vectors/location/multicolor/
             url: "https://www.svgrepo.com/show/429985/christmas-santa-claus.svg",
-            fillColor: "#EB00FF",
-            scale: 7,
           }}
         />
       </GoogleMap>

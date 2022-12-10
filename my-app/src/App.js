@@ -30,6 +30,9 @@ function App() {
           }}
         >
           <Grid2 xs="auto"
+            sx={{
+              position: "sticky",
+            }}
           >
             <Sidebar />
           </Grid2>

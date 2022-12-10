@@ -32,7 +32,7 @@ const Dashboard = () => {
           sx={{
             position: "relative",
             width: "auto",
-            height: "300px",
+            height: "500px",
             zIndex: 1,
             "&hover": { zIndex: 2 },
             borderRadius: "20px",

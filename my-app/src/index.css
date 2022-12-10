@@ -15,15 +15,6 @@ body,
   display: flex;
   position: relative;
 }
-.gm-style .gm-style-iw-d::-webkit-scrollbar-track,
-.gm-style .gm-style-iw-d::-webkit-scrollbar-track-piece,
-.gm-style .gm-style-iw-c,
-.gm-style .gm-style-iw-t::after {
-  background: red;
-}
-::-webkit-scrollbar {
-  width: 10px;
-}
 
 /* Track */
 ::-webkit-scrollbar-track {

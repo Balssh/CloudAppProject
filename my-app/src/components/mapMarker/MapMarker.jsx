@@ -26,16 +26,20 @@ const MapMarker = ({ ind, markerData }) => {
       position={{ lat: markerData.latitude, lng: markerData.longitude }}
       onClick={onMarkerClick}
       clickable={true}
+      icon={{
+        url: "https://www.svgrepo.com/show/416467/app-interface-location.svg",
+        scaledSize: new window.google.maps.Size(45, 45),
+      }}
     >
       {showInfoWindow && (
         <InfoWindowF
           position={{ lat: markerData.latitude, lng: markerData.longitude }}
           onCloseClick={onInfoWindowClose}
-
         >
           <CardContent
             sx={{
               backgroundColor: colors.primary[400],
+              height: "100%",
             }}
           >
             <Typography

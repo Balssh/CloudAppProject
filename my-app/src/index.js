@@ -5,6 +5,7 @@ import { AuthProvider } from "react-auth-kit";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import App from "./App";
 import { jwtInterceptor } from './Helper/Interceptor';
+import "./index.css"
 
 jwtInterceptor();
 
