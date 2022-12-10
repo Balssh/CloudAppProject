@@ -6,6 +6,7 @@ import {
   InputAdornment,
   Select,
   MenuItem,
+  Stack,
 } from "@mui/material";
 import AddLocationAltOutlinedIcon from "@mui/icons-material/AddLocationAltOutlined";
 import CrisisAlertOutlinedIcon from "@mui/icons-material/CrisisAlertOutlined";
@@ -18,58 +19,6 @@ import { tokens } from "../../theme";
 
 import { getAlertTypes, addAlert } from "../../Helper/APICalls";
 import AutocompleteMUI from "../autocomplete/AutocompleteMUI";
-
-const FormItem = ({ id, name, label, formik }) => {
-  return (
-    <TextField
-      sx={{
-        // TODO: Use theme colors
-        "& label.Mui-focused": {
-          color: "green",
-        },
-        "& .MuiInput-underline:after": {
-          borderBottomColor: "green",
-        },
-        "& .MuiOutlinedInput-root": {
-          "& fieldset": {
-            borderColor: "red",
-          },
-          "&:hover fieldset": {
-            borderColor: "yellow",
-          },
-          "&.Mui-focused fieldset": {
-            borderColor: "green",
-          },
-        },
-      }}
-      variant="outlined"
-      margin="normal"
-      fullWidth
-      id={id}
-      name={name}
-      label={label}
-      type={"text"}
-      value={formik.values[name]}
-      onChange={formik.handleChange}
-      InputProps={{
-        endAdornment:
-          name === "location" ? (
-            <InputAdornment position="end">
-              <AddLocationAltOutlinedIcon edge="end" />
-            </InputAdornment>
-          ) : name === "alertType" ? (
-            <InputAdornment position="end">
-              <CrisisAlertOutlinedIcon edge="end" />
-            </InputAdornment>
-          ) : name === "description" ? (
-            <InputAdornment position="end">
-              <DescriptionOutlinedIcon edge="end" />
-            </InputAdornment>
-          ) : null,
-      }}
-    />
-  );
-};
 
 const AlertForm = () => {
   const theme = useTheme();
@@ -90,15 +39,13 @@ const AlertForm = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setAlertTypes([]);
-      await getAlertTypes(alertTypes);
+      await getAlertTypes().then((data) => {
+        console.log(data);
+        setAlertTypes(data);
+      });
     };
-    fetchData()
-      .then(() => {
-        console.log(alertTypes);
-        setAlertTypes(alertTypes);
-      })
-      .catch(console.error);
+
+    fetchData();
   }, []);
 
   const handleLocationChange = (location) => {
@@ -116,7 +63,8 @@ const AlertForm = () => {
   };
 
   return (
-    <Box
+    <Stack
+      spacing={2}
       sx={{
         width: "300px",
       }}
@@ -134,17 +82,49 @@ const AlertForm = () => {
         >
           {alertTypes.map((alertType) => {
             return (
-              <MenuItem key={alertType.label} value={alertType.label}>
-                {alertType.label}
+              <MenuItem key={alertType.id} value={alertType.type}>
+                {alertType.type}
               </MenuItem>
             );
           })}
         </Select>
-        <FormItem
-          id="description"
-          name="description"
-          label="Description"
-          formik={formik}
+        <TextField
+          sx={{
+            // TODO: Use theme colors
+            "& label.Mui-focused": {
+              color: "green",
+            },
+            "& .MuiInput-underline:after": {
+              borderBottomColor: "green",
+            },
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "red",
+              },
+              "&:hover fieldset": {
+                borderColor: "yellow",
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "green",
+              },
+            },
+          }}
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          id={"description"}
+          name={"description"}
+          label={"Description"}
+          type={"text"}
+          value={formik.values.description}
+          onChange={formik.handleChange}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <DescriptionOutlinedIcon edge="end" />
+              </InputAdornment>
+            ),
+          }}
         />
         <Button
           sx={{
@@ -159,7 +139,7 @@ const AlertForm = () => {
           Submit
         </Button>
       </form>
-    </Box>
+    </Stack>
   );
 };
 
