@@ -44,7 +44,7 @@ const AlertForm = ({ setCenter }) => {
   useEffect(() => {
     const fetchData = async () => {
       await getAlertTypes().then((data) => {
-        // console.log(data);
+        console.log(data);
         setAlertTypes(data);
       });
     };
@@ -54,7 +54,7 @@ const AlertForm = ({ setCenter }) => {
 
   const handleLocationChange = (location) => {
     formik.setFieldValue("location", location.description);
-    console.log(location);
+    // console.log(location);
     geocodeByAddress(location.description)
       .then((results) => getLatLng(results[0]))
       .then((latLng) => {
@@ -114,7 +114,7 @@ const AlertForm = ({ setCenter }) => {
         >
           {alertTypes.map((alertType) => {
             return (
-              <MenuItem key={alertType.id} value={alertType.type}>
+              <MenuItem key={alertType.id} value={alertType.id}>
                 {alertType.type}
               </MenuItem>
             );

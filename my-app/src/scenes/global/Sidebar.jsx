@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -68,9 +69,9 @@ const SidebarMenu = () => {
             setSelected={setSelected}
           />
           <Item
-            title="Home1"
-            to="/contact"
-            icon={<HomeOutlinedIcon />}
+            title="Dashboard"
+            to="/dashboard"
+            icon={<DashboardOutlinedIcon />}
             selected={selected}
             setSelected={setSelected}
           />

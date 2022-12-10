@@ -9,6 +9,7 @@ import Sidebar from "./scenes/global/Sidebar";
 import Home from "./scenes/home/Home";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
+import Dashboard from "./scenes/dashboard/Dashboard"
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -45,6 +46,14 @@ function App() {
                 element={
                   <RequireAuth loginPath="/login">
                     <Home />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/dashboard"
+                element={
+                  <RequireAuth loginPath="/login">
+                    <Dashboard />
                   </RequireAuth>
                 }
               />

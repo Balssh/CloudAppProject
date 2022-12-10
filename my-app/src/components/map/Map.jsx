@@ -2,7 +2,7 @@ import { React, useState, useRef, useEffect, useCallback } from "react";
 import { Box, Typography } from "@mui/material";
 import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
 
-import MapMarker from "../mapMaker/MapMarker";
+import MapMarker from "../mapMarker/MapMarker";
 
 const Map = ({ center, alertsList }) => {
   const mapRef = useRef();
