@@ -7,6 +7,7 @@ import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
+import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -37,17 +38,16 @@ const SidebarMenu = () => {
     <Box
       sx={{
         height: "100%",
-        backgroundColor: `${colors.primary[400]}`,
       }}
     >
       <Sidebar
         rootStyles={{
           "& inner": {
-            backgroundColor: colors.primary[400],
+            backgroundColor: theme.palette.background,
           },
           height: "100%",
         }}
-        backgroundColor={colors.primary[400]}
+        backgroundColor={theme.palette.background}
       >
         <Menu
           menuItemStyles={{
@@ -76,16 +76,9 @@ const SidebarMenu = () => {
             setSelected={setSelected}
           />
           <Item
-            title="Home2"
+            title="Contact"
             to="/"
-            icon={<HomeOutlinedIcon />}
-            selected={selected}
-            setSelected={setSelected}
-          />
-          <Item
-            title="Home3"
-            to="/"
-            icon={<HomeOutlinedIcon />}
+            icon={<ContactMailOutlinedIcon />}
             selected={selected}
             setSelected={setSelected}
           />
