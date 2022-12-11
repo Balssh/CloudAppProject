@@ -8,7 +8,10 @@ body,
   height: 100%;
   width: 100%;
   font-family: "Source Sans Pro", sans-serif;
-  float: "left";
+  min-height: -webkit-fill-available;
+  position: sticky;
+  top: 0;
+  left: 0;
 }
 
 .app {

@@ -32,6 +32,8 @@ function App() {
           <Grid2 xs="auto"
             sx={{
               position: "sticky",
+              height: "100%",
+              p: 0,
             }}
           >
             <Sidebar />
@@ -39,6 +41,7 @@ function App() {
 
           <Grid2
             sx={{
+              ml: "10px",
               flexGrow: 1,
             }}
           >

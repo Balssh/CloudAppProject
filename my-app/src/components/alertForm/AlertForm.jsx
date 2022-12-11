@@ -44,7 +44,7 @@ const AlertForm = ({ setCenter }) => {
   useEffect(() => {
     const fetchData = async () => {
       await getAlertTypes().then((data) => {
-        console.log(data);
+        // console.log(data);
         setAlertTypes(data);
       });
     };
@@ -69,6 +69,7 @@ const AlertForm = ({ setCenter }) => {
     <Stack
       sx={{
         width: "300px",
+        backgroundColor: colors.primary.background,
       }}
     >
       <form onSubmit={formik.handleSubmit}>
@@ -77,20 +78,20 @@ const AlertForm = ({ setCenter }) => {
           sx={{
             // TODO: Use theme colors
             "& label.Mui-focused": {
-              color: "green",
+              color: theme.palette.outlines.selected,
             },
             "& .MuiInput-underline:after": {
-              borderBottomColor: "green",
+              borderBottomColor: theme.palette.outlines.selected,
             },
             "& .MuiOutlinedInput-root": {
               "& fieldset": {
-                borderColor: "red",
+                borderColor: theme.palette.outlines.default,
               },
               "&:hover fieldset": {
-                borderColor: "yellow",
+                borderColor: theme.palette.outlines.hover,
               },
               "&.Mui-focused fieldset": {
-                borderColor: "green",
+                borderColor: theme.palette.outlines.selected,
               },
             },
           }}
@@ -124,20 +125,20 @@ const AlertForm = ({ setCenter }) => {
           sx={{
             // TODO: Use theme colors
             "& label.Mui-focused": {
-              color: "green",
+              color: theme.palette.outlines.selected,
             },
             "& .MuiInput-underline:after": {
-              borderBottomColor: "green",
+              borderBottomColor: theme.palette.outlines.selected,
             },
             "& .MuiOutlinedInput-root": {
               "& fieldset": {
-                borderColor: "red",
+                borderColor: theme.palette.outlines.default,
               },
               "&:hover fieldset": {
-                borderColor: "yellow",
+                borderColor: theme.palette.outlines.hover,
               },
               "&.Mui-focused fieldset": {
-                borderColor: "green",
+                borderColor: theme.palette.outlines.selected,
               },
             },
           }}
@@ -160,9 +161,13 @@ const AlertForm = ({ setCenter }) => {
         />
         <Button
           sx={{
-            backgroundColor: colors.primary[400],
+            color: colors.primary[400],
+            backgroundColor: theme.palette.secondary.main,
             fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
             margin: "auto",
+            "&:hover": {
+              backgroundColor: theme.palette.secondary.hoverButton,
+            },
           }}
           variant="contained"
           fullWidth

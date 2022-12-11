@@ -134,6 +134,7 @@ export const themeSettings = (mode) => {
             },
             secondary: {
               main: colors.greenAccent[500],
+              hoverButton: "#00a896",
             },
             neutral: {
               dark: colors.grey[700],
@@ -143,6 +144,11 @@ export const themeSettings = (mode) => {
             background: {
               default: colors.primary[500],
             },
+            outlines: {
+              default: "red",
+              hover: "yellow",
+              selected: "green",
+            },
           }
         : {
             // light mode
@@ -151,6 +157,7 @@ export const themeSettings = (mode) => {
             },
             secondary: {
               main: colors.greenAccent[500],
+              hoverButton: "#00a896",
             },
             neutral: {
               dark: colors.grey[700],
@@ -158,7 +165,12 @@ export const themeSettings = (mode) => {
               light: colors.grey[100],
             },
             background: {
-              default: "#fcfcfc",
+              default: "#EEEEEE",
+            },
+            outlines: {
+              default: "#001F3F",
+              hover: "#FF8C00",
+              selected: "#32CD32",
             },
           }),
     },

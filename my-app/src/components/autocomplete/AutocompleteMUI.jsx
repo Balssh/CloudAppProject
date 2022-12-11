@@ -6,11 +6,13 @@ import {
   Grid,
   Typography,
   InputAdornment,
+  useTheme,
 } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import parse from "autosuggest-highlight/parse";
 import throttle from "lodash/throttle";
 import AddLocationAltOutlinedIcon from "@mui/icons-material/AddLocationAltOutlined";
+import { tokens } from "../../theme";
 
 const autocompleteService = { current: null };
 
@@ -18,7 +20,8 @@ const AutocompleteMUI = ({ handleLocation }) => {
   const [value, setValue] = React.useState(null);
   const [inputValue, setInputValue] = React.useState("");
   const [options, setOptions] = React.useState([]);
-
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const locationChange = (event, newValue) => {
     handleLocation(newValue);
     setValue(newValue);
@@ -74,21 +77,22 @@ const AutocompleteMUI = ({ handleLocation }) => {
       id="autocompleteMUI"
       fullWidth
       sx={{
+        mb: 1,
         "& label.Mui-focused": {
-          color: "green",
+          color: theme.palette.outlines.selected,
         },
         "& .MuiInput-underline:after": {
-          borderBottomColor: "green",
+          borderBottomColor: theme.palette.outlines.selected,
         },
         "& .MuiOutlinedInput-root": {
           "& fieldset": {
-            borderColor: "red",
+            borderColor: theme.palette.outlines.default,
           },
           "&:hover fieldset": {
-            borderColor: "yellow",
+            borderColor: theme.palette.outlines.hover,
           },
           "&.Mui-focused fieldset": {
-            borderColor: "green",
+            borderColor: theme.palette.outlines.selected,
           },
         },
       }}
