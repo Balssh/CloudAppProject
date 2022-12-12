@@ -6,76 +6,40 @@ import {
   MenuItem,
   Stack,
 } from "@mui/material";
-
 import CrisisAlertOutlinedIcon from "@mui/icons-material/CrisisAlertOutlined";
-import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
-import { geocodeByAddress, getLatLng } from "react-google-places-autocomplete";
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 
 import { useFormik } from "formik";
-import { useState, useEffect, useContext } from "react";
-import { tokens } from "../../theme";
+import { useContext } from "react";
 
-import { getAlertTypes, addAlert } from "../../Helper/APICalls";
-import AutocompleteMUI from "../autocomplete/AutocompleteMUI";
+import { tokens } from "../../theme";
 import { StoreAlertTypes } from "../../Helper/Store";
 
-const AlertForm = ({ setCenter }) => {
+const Filter = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const formik = useFormik({
     initialValues: {
-      location: "",
-      coordinates: { lat: 0, lng: 0 },
+      user: "",
       alertType: "",
-      description: "",
     },
     onSubmit: (values) => {
-      addAlert(
-        values.location,
-        values.alertType,
-        values.coordinates,
-        values.description
-      );
-      setCenter(values.coordinates);
       alert(JSON.stringify(values, null, 2));
     },
   });
-  // const [alertTypes, setAlertTypes] = useState([]);
   const { alertTypes } = useContext(StoreAlertTypes);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     await getAlertTypes().then((data) => {
-  //       // console.log(data);
-  //       setAlertTypes(data);
-  //     });
-  //   };
-
-  //   fetchData();
-  // }, []);
-
-  const handleLocationChange = (location) => {
-    formik.setFieldValue("location", location.description);
-    // console.log(location);
-    geocodeByAddress(location.description)
-      .then((results) => getLatLng(results[0]))
-      .then((latLng) => {
-        formik.setFieldValue("coordinates", latLng);
-        setCenter(latLng);
-        // console.log(latLng);
-      })
-      .catch((error) => console.error("Error", error));
-  };
 
   return (
     <Stack
+      direction="row"
       sx={{
-        width: "300px",
+        width: "100%",
         backgroundColor: colors.primary.background,
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
       <form onSubmit={formik.handleSubmit}>
-        <AutocompleteMUI handleLocation={handleLocationChange} />
         <TextField
           sx={{
             // TODO: Use theme colors
@@ -95,15 +59,54 @@ const AlertForm = ({ setCenter }) => {
               "&.Mui-focused fieldset": {
                 borderColor: theme.palette.outlines.selected,
               },
+              minWidth: "200px",
+            },
+            mr:2,
+          }}
+          variant="outlined"
+          margin="normal"
+          id={"user"}
+          name={"user"}
+          label={"User"}
+          type={"text"}
+          value={formik.values.user}
+          onChange={formik.handleChange}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <PersonOutlinedIcon edge="end" />
+              </InputAdornment>
+            ),
+          }}
+        />
+        <TextField
+          sx={{
+            // TODO: Use theme colors
+            "& label.Mui-focused": {
+              color: theme.palette.outlines.selected,
+            },
+            "& .MuiInput-underline:after": {
+              borderBottomColor: theme.palette.outlines.selected,
+            },
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: theme.palette.outlines.default,
+              },
+              "&:hover fieldset": {
+                borderColor: theme.palette.outlines.hover,
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: theme.palette.outlines.selected,
+              },
+              minWidth: "250px",
             },
           }}
           select
           variant="outlined"
           margin="normal"
-          fullWidth
           id={"alertType"}
           name={"alertType"}
-          label={"Alert Type"}
+          label={"Alert"}
           type={"text"}
           value={formik.values.alertType}
           onChange={formik.handleChange}
@@ -123,56 +126,19 @@ const AlertForm = ({ setCenter }) => {
             );
           })}
         </TextField>
-        <TextField
-          sx={{
-            // TODO: Use theme colors
-            "& label.Mui-focused": {
-              color: theme.palette.outlines.selected,
-            },
-            "& .MuiInput-underline:after": {
-              borderBottomColor: theme.palette.outlines.selected,
-            },
-            "& .MuiOutlinedInput-root": {
-              "& fieldset": {
-                borderColor: theme.palette.outlines.default,
-              },
-              "&:hover fieldset": {
-                borderColor: theme.palette.outlines.hover,
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: theme.palette.outlines.selected,
-              },
-            },
-          }}
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          id={"description"}
-          name={"description"}
-          label={"Description"}
-          type={"text"}
-          value={formik.values.description}
-          onChange={formik.handleChange}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <DescriptionOutlinedIcon edge="end" />
-              </InputAdornment>
-            ),
-          }}
-        />
+
         <Button
           sx={{
             color: colors.primary[400],
             backgroundColor: theme.palette.secondary.main,
             fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-            margin: "auto",
+            mt: 3,
+            ml: 2,
             "&:hover": {
               backgroundColor: theme.palette.secondary.hoverButton,
             },
           }}
           variant="contained"
-          fullWidth
           type="submit"
         >
           Submit
@@ -182,4 +148,4 @@ const AlertForm = ({ setCenter }) => {
   );
 };
 
-export default AlertForm;
+export default Filter;

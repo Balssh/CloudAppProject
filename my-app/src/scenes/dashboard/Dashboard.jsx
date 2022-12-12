@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Skeleton } from "@mui/material";
+
 import { getAlertsList } from "../../Helper/APICalls";
 import Map from "../../components/map/Map";
+import Filter from "../../components/filter/Filter";
 
 const Dashboard = () => {
   const [isReady, setIsReady] = useState(false);
@@ -40,6 +42,16 @@ const Dashboard = () => {
           }}
         >
           <Map center={center} alertsList={alertsList} />
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            width: "100%",
+            mt: 2,
+          }}
+
+        >
+          <Filter />
         </Box>
     </Box>
   ) : (<Skeleton variant="rectangular" width={210} height={118} />);
