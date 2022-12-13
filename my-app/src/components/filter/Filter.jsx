@@ -14,9 +14,10 @@ import { useFormik } from "formik";
 import { useContext } from "react";
 
 import { tokens } from "../../theme";
-import { StoreAlertTypes } from "../../Helper/Store";
+import { AlertsContext } from "../../Helper/StoreData";
+import { filter } from "../../Helper/APICalls";
 
-const Filter = () => {
+const Filter = ({ setAlertsList, setCenter }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const formik = useFormik({
@@ -24,11 +25,17 @@ const Filter = () => {
       user: "",
       alertType: "",
     },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      // alert(JSON.stringify(values, null, 2));
+      if(values.alertType==="Any") values.alertType="";
+      await filter(values.user, values.alertType).then((data) => {
+        // console.log(data);
+        setAlertsList(data[0]);
+        setCenter(data[1]);
+      });
     },
   });
-  const { alertTypes } = useContext(StoreAlertTypes);
+  const { alertTypes } = useContext(AlertsContext);
 
   return (
     <Stack
@@ -125,6 +132,7 @@ const Filter = () => {
               </MenuItem>
             );
           })}
+          <MenuItem key={"anyAlert"} value={"Any"}>Any</MenuItem>
         </TextField>
 
         <Button

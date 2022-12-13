@@ -18,7 +18,7 @@ import { tokens } from "../../theme";
 
 import { getAlertTypes, addAlert } from "../../Helper/APICalls";
 import AutocompleteMUI from "../autocomplete/AutocompleteMUI";
-import { StoreAlertTypes } from "../../Helper/Store";
+import { AlertsContext } from "../../Helper/StoreData";
 
 const AlertForm = ({ setCenter }) => {
   const theme = useTheme();
@@ -41,7 +41,7 @@ const AlertForm = ({ setCenter }) => {
       alert(JSON.stringify(values, null, 2));
     },
   });
-  const { alertTypes } = useContext(StoreAlertTypes);
+  const { alertTypes } = useContext(AlertsContext);
 
   const handleLocationChange = (location) => {
     formik.setFieldValue("location", location.description);

@@ -10,17 +10,17 @@ import Home from "./scenes/home/Home";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import Dashboard from "./scenes/dashboard/Dashboard";
-import StoreAlertTypes from "./Helper/Store";
+import { AlertProvider } from "./Helper/StoreData";
 import Contact from "./scenes/contact/Contact";
 import Profile from "./scenes/profile/Profile";
 
-function App() {
+const App = () => {
   const [theme, colorMode] = useMode();
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <StoreAlertTypes>
+        <AlertProvider>
           <CssBaseline />
           <Grid2
             container
@@ -83,7 +83,7 @@ function App() {
               </Routes>
             </Grid2>
           </Grid2>
-        </StoreAlertTypes>
+        </AlertProvider>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

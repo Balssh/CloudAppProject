@@ -1,30 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Box, Typography, Skeleton, useTheme } from "@mui/material";
 
 import { getAlertsList } from "../../Helper/APICalls";
 import Map from "../../components/map/Map";
 import Filter from "../../components/filter/Filter";
 import { tokens } from "../../theme";
+import { AlertsContext } from "../../Helper/StoreData";
 
 const Dashboard = () => {
-  const [isReady, setIsReady] = useState(false);
-  const [alertsList, setAlertsList] = useState([]);
-  const [center, setCenter] = useState({ lat: 45.757533, lng: 21.229066 });
+  const [isReady, setIsReady] = useState(true);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await getAlertsList().then((data) => {
-        // console.log(data);
-        setAlertsList(data[0]);
-        setCenter(data[1]);
-        setIsReady(true);
-      });
-    };
-
-    fetchData();
-  }, []);
+  const { alertTypes, setAlertTypes, alertsList, setAlertsList, center, setCenter } =
+    useContext(AlertsContext);
 
   return isReady ? (
     <Box
@@ -67,7 +55,7 @@ const Dashboard = () => {
             mt: 2,
           }}
         >
-          <Filter />
+          <Filter setAlertsList={setAlertsList} setCenter={setCenter}/>
         </Box>
       </Box>
     </Box>

@@ -1,24 +1,9 @@
 import axios from "axios";
 
-async function getAlertsList(setCenter, alertsList) {
+async function getAlertsList() {
   return await axios
     .get("https://cloudbeesapi.azurewebsites.net/Alert")
     .then((res) => {
-      // res.data.forEach((element) => {
-      //   // console.log(element);
-      //   alertsList.push(element);
-      // });
-      // if (alertsList.length > 0) {
-      //   let lat = 0;
-      //   let lng = 0;
-      //   alertsList.forEach((element) => {
-      //     lat += element.latitude;
-      //     lng += element.longitude;
-      //   });
-      //   let cntLat = lat / alertsList.length;
-      //   let cntLng = lng / alertsList.length;
-      // console.log(cntLat, cntLng);
-      // setCenter({ lat: cntLat, lng: cntLng });
       if (res.status === 200) {
         let lat = 0;
         let lng = 0;
@@ -112,4 +97,38 @@ async function handleRegister(firstName, lastName, email, password, navigate) {
     });
 }
 
-export { getAlertsList, getAlertTypes, addAlert, handleLogin, handleRegister };
+async function filter(user, alert) {
+  // console.log(user, alert);
+  return await axios
+    .post("https://cloudbeesapi.azurewebsites.net/Alert/filtered", {
+      name: user,
+      alertTypeId: alert,
+    })
+    .then((res) => {
+      console.log(res);
+      if (res.status === 200) {
+        let lat = 0;
+        let lng = 0;
+        res.data.forEach((element) => {
+          lat += element.latitude;
+          lng += element.longitude;
+        });
+        let cntLat = lat / res.data.length;
+        let cntLng = lng / res.data.length;
+        return [res.data, { lat: cntLat, lng: cntLng }];
+      }
+      throw new Error("Error getting alert types");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+export {
+  getAlertsList,
+  getAlertTypes,
+  addAlert,
+  handleLogin,
+  handleRegister,
+  filter,
+};

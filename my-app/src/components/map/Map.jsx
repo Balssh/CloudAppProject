@@ -5,12 +5,10 @@ import MapMarker from "../mapMarker/MapMarker";
 
 const Map = ({ center, alertsList }) => {
   const mapRef = useRef();
-  const [alerts, setAlerts] = useState(alertsList);
-  // console.log();
+  // console.log(alertsList);
   const onLoad = useCallback((map) => {
     const bounds = new window.google.maps.LatLngBounds(center);
-    setAlerts(alertsList);
-    alerts.map((alert, ind) => {
+    alertsList.map((alert, ind) => {
       const location = new window.google.maps.LatLng(
         alert.latitude,
         alert.longitude
@@ -39,7 +37,7 @@ const Map = ({ center, alertsList }) => {
         }}
         onLoad={onLoad}
       >
-        {alerts.map((alert, ind) => {
+        {alertsList.map((alert, ind) => {
           return <MapMarker key={ind} markerData={alert} />;
         })}
 
