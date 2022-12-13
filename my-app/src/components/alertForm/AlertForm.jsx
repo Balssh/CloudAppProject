@@ -5,6 +5,7 @@ import {
   InputAdornment,
   MenuItem,
   Stack,
+  Typography,
 } from "@mui/material";
 
 import CrisisAlertOutlinedIcon from "@mui/icons-material/CrisisAlertOutlined";
@@ -57,11 +58,13 @@ const AlertForm = ({ setCenter }) => {
 
   return (
     <Stack
+      spacing={2}
       sx={{
-        width: "300px",
-        backgroundColor: colors.primary.background,
+        width: "auto",
+        height: "auto",
       }}
     >
+      <Typography variant="h4">Add an alert</Typography>
       <form onSubmit={formik.handleSubmit}>
         <AutocompleteMUI handleLocation={handleLocationChange} />
         <TextField
@@ -158,6 +161,7 @@ const AlertForm = ({ setCenter }) => {
             "&:hover": {
               backgroundColor: theme.palette.secondary.hoverButton,
             },
+            mt: 2,
           }}
           variant="contained"
           fullWidth

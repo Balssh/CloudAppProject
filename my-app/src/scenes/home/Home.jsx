@@ -52,11 +52,27 @@ const Home = () => {
           justifyContent={"center"}
           sx={{
             display: "flex",
-            width: "100%",
-            height: "100%",
+            width: "auto",
+            height: "auto",
           }}
         >
-          <AlertForm setCenter={setCenter}/>
+          <Box
+            alignContent={"center"}
+            justifyContent={"center"}
+            sx={{
+              padding: 2,
+              display: "flex",
+              width: "50%",
+              minWidth: "200px",
+              maxWidth: "400px",
+              border: 1,
+              borderWidth: "2px",
+              borderColor: `${colors.grey[500]}`,
+              borderRadius: "10px",
+            }}
+          >
+            <AlertForm setCenter={setCenter} />
+          </Box>
         </Box>
       </Stack>
     </Box>

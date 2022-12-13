@@ -5,6 +5,7 @@ import {
   InputAdornment,
   MenuItem,
   Stack,
+  Typography,
 } from "@mui/material";
 import CrisisAlertOutlinedIcon from "@mui/icons-material/CrisisAlertOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
@@ -33,13 +34,12 @@ const Filter = () => {
     <Stack
       direction="row"
       sx={{
-        width: "100%",
-        backgroundColor: colors.primary.background,
         alignItems: "center",
         justifyContent: "center",
       }}
     >
       <form onSubmit={formik.handleSubmit}>
+        <Typography variant="h4">Filter alerts</Typography>
         <TextField
           sx={{
             // TODO: Use theme colors
@@ -61,7 +61,7 @@ const Filter = () => {
               },
               minWidth: "200px",
             },
-            mr:2,
+            mr: 2,
           }}
           variant="outlined"
           margin="normal"
@@ -98,7 +98,7 @@ const Filter = () => {
               "&.Mui-focused fieldset": {
                 borderColor: theme.palette.outlines.selected,
               },
-              minWidth: "250px",
+              minWidth: "200px",
             },
           }}
           select
