@@ -40,19 +40,7 @@ const AlertForm = ({ setCenter }) => {
       alert(JSON.stringify(values, null, 2));
     },
   });
-  // const [alertTypes, setAlertTypes] = useState([]);
   const { alertTypes } = useContext(StoreAlertTypes);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     await getAlertTypes().then((data) => {
-  //       // console.log(data);
-  //       setAlertTypes(data);
-  //     });
-  //   };
-
-  //   fetchData();
-  // }, []);
 
   const handleLocationChange = (location) => {
     formik.setFieldValue("location", location.description);

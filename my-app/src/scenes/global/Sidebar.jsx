@@ -77,7 +77,7 @@ const SidebarMenu = () => {
           />
           <Item
             title="Contact"
-            to="/"
+            to="/contact"
             icon={<ContactMailOutlinedIcon />}
             selected={selected}
             setSelected={setSelected}

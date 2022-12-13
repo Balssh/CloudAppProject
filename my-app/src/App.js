@@ -11,6 +11,7 @@ import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import Dashboard from "./scenes/dashboard/Dashboard";
 import StoreAlertTypes from "./Helper/Store";
+import Contact from "./scenes/contact/Contact";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -67,14 +68,7 @@ function App() {
                     </RequireAuth>
                   }
                 />
-                {/* <Route
-                  path="/contact"
-                  element={
-                    <RequireAuth loginPath="/login">
-                      <Contact />
-                    </RequireAuth>
-                  }
-                /> */}
+                <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
               </Routes>
