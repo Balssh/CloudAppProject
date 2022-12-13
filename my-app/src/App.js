@@ -12,6 +12,7 @@ import Register from "./components/register/Register";
 import Dashboard from "./scenes/dashboard/Dashboard";
 import StoreAlertTypes from "./Helper/Store";
 import Contact from "./scenes/contact/Contact";
+import Profile from "./scenes/profile/Profile";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -65,6 +66,14 @@ function App() {
                   element={
                     <RequireAuth loginPath="/login">
                       <Dashboard />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="/profile"
+                  element={
+                    <RequireAuth loginPath="/login">
+                      <Profile />
                     </RequireAuth>
                   }
                 />

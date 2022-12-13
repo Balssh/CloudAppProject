@@ -1,11 +1,10 @@
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../theme";
-import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import SearchIcon from "@mui/icons-material/Search";
 
 const Topbar = () => {
   const theme = useTheme();
@@ -20,11 +19,12 @@ const Topbar = () => {
         backgroundColor={colors.primary.background}
         borderRadius="3px"
       >
-        <Typography variant="h3"
-        sx={{
-          backgroundColor: colors.primary.background,
-          color: colors.primary[100]
-        }}
+        <Typography
+          variant="h3"
+          sx={{
+            backgroundColor: colors.primary.background,
+            color: colors.primary[100],
+          }}
         >
           CloudBees'🐝 Alert System
         </Typography>
@@ -39,7 +39,7 @@ const Topbar = () => {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
-        <IconButton>
+        <IconButton component={Link} to="/profile">
           <PersonOutlinedIcon />
         </IconButton>
       </Box>
