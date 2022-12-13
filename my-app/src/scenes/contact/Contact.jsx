@@ -32,14 +32,14 @@ const Contact = () => {
       sx={{
         display: "flex",
         width: "100%",
+        mt: 2,
       }}
     >
       <Box>
         <Stack
           spacing={2}
           sx={{
-            width: "100%",
-            minWidth: "300px",
+            minWidth: "200px",
             maxWidth: "500px",
             border: 1,
             borderWidth: "2px",
@@ -81,13 +81,6 @@ const Contact = () => {
               type={"text"}
               value={formik.values.firstName}
               onChange={formik.handleChange}
-              // InputProps={{
-              //   endAdornment: (
-              //     <InputAdornment position="end">
-              //       <DescriptionOutlinedIcon edge="end" />
-              //     </InputAdornment>
-              //   ),
-              // }}
             />
             <TextField
               sx={{
@@ -119,13 +112,6 @@ const Contact = () => {
               type={"text"}
               value={formik.values.lastName}
               onChange={formik.handleChange}
-              // InputProps={{
-              //   endAdornment: (
-              //     <InputAdornment position="end">
-              //       <DescriptionOutlinedIcon edge="end" />
-              //     </InputAdornment>
-              //   ),
-              // }}
             />
             <TextField
               sx={{
@@ -157,13 +143,6 @@ const Contact = () => {
               type={"text"}
               value={formik.values.email}
               onChange={formik.handleChange}
-              // InputProps={{
-              //   endAdornment: (
-              //     <InputAdornment position="end">
-              //       <DescriptionOutlinedIcon edge="end" />
-              //     </InputAdornment>
-              //   ),
-              // }}
             />
             <TextField
               sx={{
@@ -189,8 +168,7 @@ const Contact = () => {
               variant="outlined"
               margin="normal"
               multiline
-              rows={4}
-              maxRows={10}
+              minRows={4}
               fullWidth
               id={"details"}
               name={"details"}
@@ -198,13 +176,6 @@ const Contact = () => {
               type={"text"}
               value={formik.values.details}
               onChange={formik.handleChange}
-              // InputProps={{
-              //   endAdornment: (
-              //     <InputAdornment position="end">
-              //       <DescriptionOutlinedIcon edge="end" />
-              //     </InputAdornment>
-              //   ),
-              // }}
             />
             <Button
               sx={{
