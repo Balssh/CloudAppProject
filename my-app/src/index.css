@@ -8,15 +8,15 @@ body,
   height: 100%;
   width: 100%;
   font-family: "Source Sans Pro", sans-serif;
+  min-height: -webkit-fill-available;
+  position: sticky;
+  top: 0;
+  left: 0;
 }
 
 .app {
   display: flex;
   position: relative;
-}
-
-::-webkit-scrollbar {
-  width: 10px;
 }
 
 /* Track */

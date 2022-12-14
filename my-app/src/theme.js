@@ -19,7 +19,7 @@ export const tokens = (mode) => ({
           100: "#d0d1d5",
           200: "#a1a4ab",
           300: "#727681",
-          400: "#434957",
+          400: "#1f2a40",
           500: "#141b2d",
           600: "#f2f0f0",
           700: "#0c101b",
@@ -102,7 +102,7 @@ export const tokens = (mode) => ({
           500: "#db4f4a",
           600: "#e2726e",
           700: "#e99592",
-          700: "#f1b9b7",
+          800: "#f1b9b7",
           900: "#f8dcdb",
         },
         blueAccent: {
@@ -134,6 +134,7 @@ export const themeSettings = (mode) => {
             },
             secondary: {
               main: colors.greenAccent[500],
+              hoverButton: "#00a896",
             },
             neutral: {
               dark: colors.grey[700],
@@ -143,6 +144,11 @@ export const themeSettings = (mode) => {
             background: {
               default: colors.primary[500],
             },
+            outlines: {
+              default: "red",
+              hover: "yellow",
+              selected: "green",
+            },
           }
         : {
             // light mode
@@ -151,6 +157,7 @@ export const themeSettings = (mode) => {
             },
             secondary: {
               main: colors.greenAccent[500],
+              hoverButton: "#00a896",
             },
             neutral: {
               dark: colors.grey[700],
@@ -158,7 +165,12 @@ export const themeSettings = (mode) => {
               light: colors.grey[100],
             },
             background: {
-              default: "#fcfcfc",
+              default: "#EEEEEE",
+            },
+            outlines: {
+              default: "#001F3F",
+              hover: "#FF8C00",
+              selected: "#32CD32",
             },
           }),
     },
@@ -194,7 +206,7 @@ export const themeSettings = (mode) => {
 };
 
 // context setup
-export const ColorModeCotnext = createContext({
+export const ColorModeContext = createContext({
   toggleColorMode: () => {},
 });
 
