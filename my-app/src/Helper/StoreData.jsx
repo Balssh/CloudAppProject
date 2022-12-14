@@ -15,7 +15,7 @@ const AlertProvider = ({ children }) => {
         setAlertTypes(data);
       });
       await getAlertsList().then((data) => {
-        console.log(data);
+        // console.log(data);
         setAlertsList(data[0]);
         setCenter(data[1]);
       });

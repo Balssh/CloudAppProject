@@ -124,6 +124,21 @@ async function filter(user, alert) {
     });
 }
 
+async function getUserData() {
+  return await axios
+    .get("https://cloudbeesapi.azurewebsites.net/user-profile")
+    .then((res) => {
+      // console.log(res);
+      if (res.status === 200) {
+        return res.data;
+      }
+      throw new Error("Error getting user data");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 export {
   getAlertsList,
   getAlertTypes,
@@ -131,4 +146,5 @@ export {
   handleLogin,
   handleRegister,
   filter,
+  getUserData,
 };
