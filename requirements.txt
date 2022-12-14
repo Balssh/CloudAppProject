@@ -1,5 +1,0 @@
-streamlit==1.15.0
-streamlit-option-menu==0.3.2
-googlemaps==4.7.0
-ipywidgets==8.0.2
-bokeh==3.0.2
