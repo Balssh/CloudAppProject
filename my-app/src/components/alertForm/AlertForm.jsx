@@ -13,10 +13,10 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import { geocodeByAddress, getLatLng } from "react-google-places-autocomplete";
 
 import { useFormik } from "formik";
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { tokens } from "../../theme";
 
-import { getAlertTypes, addAlert } from "../../Helper/APICalls";
+import { addAlert } from "../../Helper/APICalls";
 import AutocompleteMUI from "../autocomplete/AutocompleteMUI";
 import { AlertsContext } from "../../Helper/StoreData";
 

@@ -1,12 +1,10 @@
-import { useSignIn, useIsAuthenticated } from "react-auth-kit";
+import { useIsAuthenticated } from "react-auth-kit";
 import { useNavigate, Link } from "react-router-dom";
 import {
   Box,
   Button,
   TextField,
   useTheme,
-  FormControlLabel,
-  Checkbox,
   InputAdornment,
   IconButton,
 } from "@mui/material";

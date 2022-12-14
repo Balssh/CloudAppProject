@@ -1,8 +1,5 @@
 import {
   Box,
-  Button,
-  IconButton,
-  Typography,
   useTheme,
   Stack,
 } from "@mui/material";
@@ -10,7 +7,6 @@ import { tokens } from "../../theme";
 import { useState } from "react";
 
 import Map from "../../components/map/Map";
-import { borderRadius } from "@mui/system";
 import AlertForm from "../../components/alertForm/AlertForm";
 
 const Home = () => {

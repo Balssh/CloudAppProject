@@ -12,7 +12,6 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import parse from "autosuggest-highlight/parse";
 import throttle from "lodash/throttle";
 import AddLocationAltOutlinedIcon from "@mui/icons-material/AddLocationAltOutlined";
-import { tokens } from "../../theme";
 
 const autocompleteService = { current: null };
 
@@ -21,7 +20,7 @@ const AutocompleteMUI = ({ handleLocation }) => {
   const [inputValue, setInputValue] = React.useState("");
   const [options, setOptions] = React.useState([]);
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  // const colors = tokens(theme.palette.mode);
   const locationChange = (event, newValue) => {
     handleLocation(newValue);
     setValue(newValue);

@@ -1,5 +1,5 @@
-import { React, useState, useRef, useEffect, useCallback } from "react";
-import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
+import { React, useRef, useCallback } from "react";
+import { GoogleMap, MarkerF } from "@react-google-maps/api";
 import { MapStyle } from "./mapStyle";
 import MapMarker from "../mapMarker/MapMarker";
 

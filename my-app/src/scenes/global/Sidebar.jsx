@@ -30,7 +30,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 
 const SidebarMenu = () => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  // const colors = tokens(theme.palette.mode);
   const [selected, setSelected] = useState("Home");
   const signOut = useSignOut();
 

@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Box, Typography, Skeleton, useTheme } from "@mui/material";
+import React, { useState, useContext } from "react";
+import { Box, Skeleton, useTheme } from "@mui/material";
 
-import { getAlertsList } from "../../Helper/APICalls";
 import Map from "../../components/map/Map";
 import Filter from "../../components/filter/Filter";
 import { tokens } from "../../theme";
