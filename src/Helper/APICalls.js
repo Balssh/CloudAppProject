@@ -156,6 +156,30 @@ async function sendMail(email, firstName, lastName, message) {
         });
 }
 
+async function getAlertStats() {
+    return await axios
+        .get("https://cloudbeesapi.azurewebsites.net/stats/alerts")
+        .then((res) => {
+            // console.log(res);
+            if (res.status === 200) {
+                return res.data;
+            }
+            throw new Error("Error getting alert stats");
+        });
+}
+
+async function getUsersStats() {
+    return await axios
+        .get("https://cloudbeesapi.azurewebsites.net/stats/users")
+        .then((res) => {
+            // console.log(res);
+            if (res.status === 200) {
+                return res.data;
+            }
+            throw new Error("Error getting users stats");
+        });
+}
+
 export {
     getAlertsList,
     getAlertTypes,
@@ -165,4 +189,6 @@ export {
     filter,
     getUserData,
     sendMail,
+    getAlertStats,
+    getUsersStats,
 };
