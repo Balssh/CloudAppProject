@@ -2,7 +2,7 @@ import axios from "axios";
 
 async function getAlertsList() {
     return await axios
-        .get("https://cloudbeesapi.azurewebsites.net/Alert")
+        .get("https://apicloudbees.azurewebsites.net/Alert")
         .then((res) => {
             if (res.status === 200) {
                 let lat = 0;
@@ -24,7 +24,7 @@ async function getAlertsList() {
 
 async function getAlertTypes() {
     return await axios
-        .get("https://cloudbeesapi.azurewebsites.net/AlertType")
+        .get("https://apicloudbees.azurewebsites.net/AlertType")
         .then((res) => {
             // console.log(res);
             if (res.status === 200) {
@@ -41,7 +41,7 @@ async function addAlert(location, alert, coordinates, description) {
     console.log(location, alert, coordinates, description);
 
     await axios
-        .post("https://cloudbeesapi.azurewebsites.net/Alert", {
+        .post("https://apicloudbees.azurewebsites.net/Alert", {
             typeId: alert,
             latitude: coordinates.lat,
             longitude: coordinates.lng,
@@ -59,7 +59,7 @@ async function addAlert(location, alert, coordinates, description) {
 async function handleLogin(email, password, rememberMe, navigate, signIn) {
     console.log(email, password);
     await axios
-        .post("https://cloudbeesapi.azurewebsites.net/auth/login", {
+        .post("https://apicloudbees.azurewebsites.net/auth/login", {
             email: email,
             password: password,
             rememberMe: rememberMe,
@@ -82,7 +82,7 @@ async function handleLogin(email, password, rememberMe, navigate, signIn) {
 async function handleRegister(firstName, lastName, email, password, navigate) {
     console.log(email, password);
     await axios
-        .post("https://cloudbeesapi.azurewebsites.net/auth/register", {
+        .post("https://apicloudbees.azurewebsites.net/auth/register", {
             firstName: firstName,
             lastName: lastName,
             email: email,
@@ -100,7 +100,7 @@ async function handleRegister(firstName, lastName, email, password, navigate) {
 async function filter(user, alert) {
     // console.log(user, alert);
     return await axios
-        .post("https://cloudbeesapi.azurewebsites.net/Alert/filtered", {
+        .post("https://apicloudbees.azurewebsites.net/Alert/filtered", {
             name: user,
             alertTypeId: alert,
         })
@@ -126,7 +126,7 @@ async function filter(user, alert) {
 
 async function getUserData() {
     return await axios
-        .get("https://cloudbeesapi.azurewebsites.net/user-profile")
+        .get("https://apicloudbees.azurewebsites.net/user-profile")
         .then((res) => {
             // console.log(res);
             if (res.status === 200) {
@@ -142,7 +142,7 @@ async function getUserData() {
 async function sendMail(email, firstName, lastName, message) {
     console.log(email, firstName, lastName, message);
     await axios
-        .post("https://cloudbeesapi.azurewebsites.net/email", {
+        .post("https://apicloudbees.azurewebsites.net/email", {
             firstName: firstName,
             lastName: lastName,
             email: email,
@@ -158,7 +158,7 @@ async function sendMail(email, firstName, lastName, message) {
 
 async function getAlertStats() {
     return await axios
-        .get("https://cloudbeesapi.azurewebsites.net/stats/alerts")
+        .get("https://apicloudbees.azurewebsites.net/stats/alerts")
         .then((res) => {
             // console.log(res);
             if (res.status === 200) {
@@ -170,7 +170,7 @@ async function getAlertStats() {
 
 async function getUsersStats() {
     return await axios
-        .get("https://cloudbeesapi.azurewebsites.net/stats/users")
+        .get("https://apicloudbees.azurewebsites.net/stats/users")
         .then((res) => {
             // console.log(res);
             if (res.status === 200) {
