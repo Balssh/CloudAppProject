@@ -1,4 +1,11 @@
-import { Box, Skeleton, Typography, useTheme } from "@mui/material";
+import {
+    Box,
+    MenuItem,
+    Select,
+    Skeleton,
+    Typography,
+    useTheme,
+} from "@mui/material";
 import React, { useContext, useState } from "react";
 
 import { useEffect } from "react";
@@ -69,6 +76,11 @@ const Dashboard = () => {
     } = useContext(AlertsContext);
     const [alertStats, setAlertStats] = useState([]);
     const [usersStats, setUsersStats] = useState([]);
+    const [selectedDelete, setSelectedDelete] = useState();
+    const user = localStorage.getItem("_auth");
+    const handleSelectDelete = (event) => {
+        setSelectedDelete(event.target.value);
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -151,15 +163,28 @@ const Dashboard = () => {
                     />
                 </Box>
             </Box>
-            <Typography variant="h3" sx={{ mt: 2 }}>
-                {" "}
-                Admin Area{" "}
-            </Typography>
-            <AdminArea
-                alertStats={alertStats}
-                alertsStatsLines={alertsStatsLines}
-                usersStatsLines={usersStatsLines}
-            />
+            {user.role === "Admin" &&
+                (<Typography variant="h3" sx={{ mt: 2 }}>
+                    Admin Area
+                </Typography>)(
+                    <AdminArea
+                        alertStats={alertStats}
+                        alertsStatsLines={alertsStatsLines}
+                        usersStatsLines={usersStatsLines}
+                    />
+                )()
+                // <Select
+                //     labelId="selectDelete"
+                //     id="selectDelete"
+                //     value={selectedDelete}
+                //     label="Select to delete"
+                //     onChange={handleSelectDelete}
+                // >
+                //     {/* {alertsList.map((alert) => (
+                //         <MenuItem value={alert.id}>{alert.id}</MenuItem>
+                //     ))} */}
+                // </Select>
+            }
         </Box>
     ) : (
         <Skeleton variant="rectangular" width={210} height={118} />
