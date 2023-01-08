@@ -1,5 +1,6 @@
 import {
     Box,
+    Button,
     MenuItem,
     Select,
     Skeleton,
@@ -13,11 +14,14 @@ import BarChart from "../../components/charts/Barchart";
 import LineChart from "../../components/charts/Linechart";
 import Filter from "../../components/filter/Filter";
 import Map from "../../components/map/Map";
-import { getAlertStats, getUsersStats } from "../../Helper/APICalls";
+import { getAlertStats, getUsersStats, deleteAlert } from "../../Helper/APICalls";
 import { AlertsContext } from "../../Helper/StoreData";
 import { tokens } from "../../theme";
 
 const AdminArea = ({ alertStats, alertsStatsLines, usersStatsLines, selectedDelete, handleSelectDelete, alertsList }) => {
+    const handleDelete = () => {
+        deleteAlert(selectedDelete);
+    }
     return (
         <>
             <Typography variant="h3" sx={{ mt: 2 }}>
@@ -56,19 +60,36 @@ const AdminArea = ({ alertStats, alertsStatsLines, usersStatsLines, selectedDele
             >
                 <LineChart data={usersStatsLines} />
             </Box>
-            <Select
-                labelId="selectDelete"
-                id="selectDelete"
-                value={selectedDelete}
-                label="Select to delete"
-                onChange={handleSelectDelete}
-            >
-                {
-                    alertsList.map((alert) => (
-                        <MenuItem value={alert.id}>{alert.id}</MenuItem>
-                    ))
-                }
-            </Select>
+            <Box>
+                <Select
+                sx = {{
+                    width: "600px",
+                }}
+                    labelId="selectDelete"
+                    id="selectDelete"
+                    value={selectedDelete}
+                    label="Select to delete"
+                    onChange={handleSelectDelete}
+                >
+                    {
+                        alertsList.map((alert) => (
+                            <MenuItem value={alert.id} key={alert.id}>{alert.location}</MenuItem>
+                        ))
+                    }
+                </Select>
+                <Button
+                    sx={{
+                        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+                        margin: "auto",
+                        mt: 2,
+                    }}
+                    variant="contained"
+                    width = "200px"
+                    onClick={handleDelete}
+                >
+                    Close
+                </Button>
+            </Box>
         </>
     );
 };

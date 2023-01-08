@@ -56,6 +56,19 @@ async function addAlert(location, alert, coordinates, description) {
         });
 }
 
+async function deleteAlert(id) {
+    await axios
+        .put("https://apicloudbees.azurewebsites.net/AdminAlert", {
+            alertId: id
+        })
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
 async function handleLogin(email, password, rememberMe, navigate, signIn) {
     console.log(email, password);
     await axios
@@ -192,4 +205,5 @@ export {
     sendMail,
     getAlertStats,
     getUsersStats,
+    deleteAlert
 };
