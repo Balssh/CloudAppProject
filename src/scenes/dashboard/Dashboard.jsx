@@ -17,9 +17,12 @@ import { getAlertStats, getUsersStats } from "../../Helper/APICalls";
 import { AlertsContext } from "../../Helper/StoreData";
 import { tokens } from "../../theme";
 
-const AdminArea = ({ alertStats, alertsStatsLines, usersStatsLines }) => {
+const AdminArea = ({ alertStats, alertsStatsLines, usersStatsLines, selectedDelete, handleSelectDelete, alertsList }) => {
     return (
         <>
+            <Typography variant="h3" sx={{ mt: 2 }}>
+                Admin Area
+            </Typography>
             <Box
                 sx={{
                     height: "300px",
@@ -53,6 +56,19 @@ const AdminArea = ({ alertStats, alertsStatsLines, usersStatsLines }) => {
             >
                 <LineChart data={usersStatsLines} />
             </Box>
+            <Select
+                labelId="selectDelete"
+                id="selectDelete"
+                value={selectedDelete}
+                label="Select to delete"
+                onChange={handleSelectDelete}
+            >
+                {
+                    alertsList.map((alert) => (
+                        <MenuItem value={alert.id}>{alert.id}</MenuItem>
+                    ))
+                }
+            </Select>
         </>
     );
 };
@@ -77,7 +93,7 @@ const Dashboard = () => {
     const [alertStats, setAlertStats] = useState([]);
     const [usersStats, setUsersStats] = useState([]);
     const [selectedDelete, setSelectedDelete] = useState();
-    const user = localStorage.getItem("_auth");
+    const role = localStorage.getItem("role");
     const handleSelectDelete = (event) => {
         setSelectedDelete(event.target.value);
     };
@@ -163,27 +179,17 @@ const Dashboard = () => {
                     />
                 </Box>
             </Box>
-            {user.role === "Admin" &&
-                (<Typography variant="h3" sx={{ mt: 2 }}>
-                    Admin Area
-                </Typography>)(
+            {role === "Admin" &&
+                (
                     <AdminArea
                         alertStats={alertStats}
                         alertsStatsLines={alertsStatsLines}
                         usersStatsLines={usersStatsLines}
+                        alertsList={alertsList}
+                        selectedDelete={selectedDelete}
+                        handleSelectDelete={handleSelectDelete}
                     />
-                )()
-                // <Select
-                //     labelId="selectDelete"
-                //     id="selectDelete"
-                //     value={selectedDelete}
-                //     label="Select to delete"
-                //     onChange={handleSelectDelete}
-                // >
-                //     {/* {alertsList.map((alert) => (
-                //         <MenuItem value={alert.id}>{alert.id}</MenuItem>
-                //     ))} */}
-                // </Select>
+                )
             }
         </Box>
     ) : (

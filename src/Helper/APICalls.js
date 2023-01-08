@@ -66,11 +66,12 @@ async function handleLogin(email, password, rememberMe, navigate, signIn) {
         })
         .then((res) => {
             console.log(res.data.token, res.data.expiresIn);
+            localStorage.setItem("role", res.data.role);
             signIn({
                 token: res.data.token,
                 expiresIn: res.data.expiresIn,
                 tokenType: "Bearer",
-                authState: { email: email, role: res.data.role },
+                authState: { email: email }
             });
             navigate("/");
         })
